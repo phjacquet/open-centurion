@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="69">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true"
+                   kind="SOURCE_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="Sources" displayName="Sources" projectFiles="true">
+      <logicalFolder name="Mesh"
+                     displayName="Mesh"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>Sources/Mesh/CartesianOneDimMesh.cpp</itemPath>
+        <itemPath>Sources/Mesh/CartesianOneDimMesh.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Sections"
+                     displayName="Sections"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>Sources/Sections/DefaultCrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/DefaultCrossSection.h</itemPath>
+        <itemPath>Sources/Sections/DefaultScatteringCrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/DefaultScatteringCrossSection.h</itemPath>
+        <itemPath>Sources/Sections/FissionCrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/FissionCrossSection.h</itemPath>
+        <itemPath>Sources/Sections/FissionDistribution.cpp</itemPath>
+        <itemPath>Sources/Sections/FissionDistribution.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Solution"
+                     displayName="Solution"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>Sources/Solution/FissionSource.cpp</itemPath>
+        <itemPath>Sources/Solution/FissionSource.h</itemPath>
+        <itemPath>Sources/Solution/Flux.cpp</itemPath>
+        <itemPath>Sources/Solution/Flux.h</itemPath>
+        <itemPath>Sources/Solution/ReactionRate.cpp</itemPath>
+        <itemPath>Sources/Solution/ReactionRate.h</itemPath>
+        <itemPath>Sources/Solution/ScalarSolution.cpp</itemPath>
+        <itemPath>Sources/Solution/ScalarSolution.h</itemPath>
+        <itemPath>Sources/Solution/ScalarSource.cpp</itemPath>
+        <itemPath>Sources/Solution/ScalarSource.h</itemPath>
+        <itemPath>Sources/Solution/ScatteringSource.cpp</itemPath>
+        <itemPath>Sources/Solution/ScatteringSource.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Solver"
+                     displayName="Solver"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>Sources/Solver/PijSolver.cpp</itemPath>
+        <itemPath>Sources/Solver/PijSolver.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="TotalCrossSection"
+                     displayName="TotalCrossSection"
+                     projectFiles="true"
+                     kind="SOURCE_LOGICAL_FOLDER">
+        <itemPath>Sources/TotalCrossSection/DefaultTotalCrossSection.cpp</itemPath>
+        <itemPath>Sources/TotalCrossSection/DefaultTotalCrossSection.h</itemPath>
+      </logicalFolder>
+      <itemPath>Sources/main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
