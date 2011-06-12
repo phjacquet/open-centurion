@@ -7,8 +7,9 @@
 
 #ifndef DEFAULTSCATTERINGCROSSSECTION_H
 #define	DEFAULTSCATTERINGCROSSSECTION_H
+#include "CrossSection.h"
 
-class DefaultScatteringCrossSection {
+class DefaultScatteringCrossSection : public CrossSection {
 public:
     DefaultScatteringCrossSection();
     DefaultScatteringCrossSection(const DefaultScatteringCrossSection& orig);

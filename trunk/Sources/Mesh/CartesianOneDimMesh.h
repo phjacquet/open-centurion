@@ -16,7 +16,7 @@ public:
     CartesianOneDimMesh(const CartesianOneDimMesh& orig);
     virtual ~CartesianOneDimMesh();
 private:
-
+    
 };
 
 #endif	/* CARTESIANONEDIMMESH_H */
