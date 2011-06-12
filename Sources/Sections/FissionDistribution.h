@@ -7,8 +7,9 @@
 
 #ifndef FISSIONDISTRIBUTION_H
 #define	FISSIONDISTRIBUTION_H
+#include "CrossSection.h"
 
-class FissionDistribution {
+class FissionDistribution  : public CrossSection {
 public:
     FissionDistribution();
     FissionDistribution(const FissionDistribution& orig);

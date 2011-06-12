@@ -7,8 +7,9 @@
 
 #ifndef FISSIONCROSSSECTION_H
 #define	FISSIONCROSSSECTION_H
+#include "CrossSection.h"
 
-class FissionCrossSection {
+class FissionCrossSection  : public CrossSection {
 public:
     FissionCrossSection();
     FissionCrossSection(const FissionCrossSection& orig);

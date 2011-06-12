@@ -1,8 +1,8 @@
 /* 
- * File:   DefaultTotalCrossSection.cpp
+ * File:   DefaultCrossSection.cpp
  * Author: Phil
  * 
- * Created on 1 juin 2011, 22:11
+ * Created on 1 juin 2011, 22:17
  */
 
 #include "DefaultTotalCrossSection.h"
