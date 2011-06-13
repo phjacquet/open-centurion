@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="69">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="Sources" displayName="Sources" projectFiles="true">
-      <logicalFolder name="Mesh"
-                     displayName="Mesh"
-                     projectFiles="true"
-                     kind="SOURCE_LOGICAL_FOLDER">
+      <logicalFolder name="f1" displayName="Material" projectFiles="true">
+        <itemPath>Sources/Material/Geometry.cpp</itemPath>
+        <itemPath>Sources/Material/Geometry.h</itemPath>
+        <itemPath>Sources/Material/Library.cpp</itemPath>
+        <itemPath>Sources/Material/Library.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Mesh" displayName="Mesh" projectFiles="true">
         <itemPath>Sources/Mesh/CartesianOneDimMesh.cpp</itemPath>
         <itemPath>Sources/Mesh/CartesianOneDimMesh.h</itemPath>
+        <itemPath>Sources/Mesh/CartesianOneDimRegion.cpp</itemPath>
+        <itemPath>Sources/Mesh/CartesianOneDimRegion.h</itemPath>
+        <itemPath>Sources/Mesh/Mesh.cpp</itemPath>
+        <itemPath>Sources/Mesh/Mesh.h</itemPath>
+        <itemPath>Sources/Mesh/Region.cpp</itemPath>
+        <itemPath>Sources/Mesh/Region.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="Sections"
-                     displayName="Sections"
-                     projectFiles="true"
-                     kind="SOURCE_LOGICAL_FOLDER">
-        <itemPath>Sources/Sections/DefaultCrossSection.cpp</itemPath>
-        <itemPath>Sources/Sections/DefaultCrossSection.h</itemPath>
+      <logicalFolder name="Sections" displayName="Sections" projectFiles="true">
+        <itemPath>Sources/Sections/CrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/CrossSection.h</itemPath>
         <itemPath>Sources/Sections/DefaultScatteringCrossSection.cpp</itemPath>
         <itemPath>Sources/Sections/DefaultScatteringCrossSection.h</itemPath>
+        <itemPath>Sources/Sections/DefaultTotalCrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/DefaultTotalCrossSection.h</itemPath>
         <itemPath>Sources/Sections/FissionCrossSection.cpp</itemPath>
         <itemPath>Sources/Sections/FissionCrossSection.h</itemPath>
         <itemPath>Sources/Sections/FissionDistribution.cpp</itemPath>
         <itemPath>Sources/Sections/FissionDistribution.h</itemPath>
+        <itemPath>Sources/Sections/ProblemCrossSections.cpp</itemPath>
+        <itemPath>Sources/Sections/ProblemCrossSections.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="Solution"
-                     displayName="Solution"
-                     projectFiles="true"
-                     kind="SOURCE_LOGICAL_FOLDER">
+      <logicalFolder name="Solution" displayName="Solution" projectFiles="true">
         <itemPath>Sources/Solution/FissionSource.cpp</itemPath>
         <itemPath>Sources/Solution/FissionSource.h</itemPath>
         <itemPath>Sources/Solution/Flux.cpp</itemPath>
@@ -44,19 +50,9 @@
         <itemPath>Sources/Solution/ScatteringSource.cpp</itemPath>
         <itemPath>Sources/Solution/ScatteringSource.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="Solver"
-                     displayName="Solver"
-                     projectFiles="true"
-                     kind="SOURCE_LOGICAL_FOLDER">
+      <logicalFolder name="Solver" displayName="Solver" projectFiles="true">
         <itemPath>Sources/Solver/PijSolver.cpp</itemPath>
         <itemPath>Sources/Solver/PijSolver.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="TotalCrossSection"
-                     displayName="TotalCrossSection"
-                     projectFiles="true"
-                     kind="SOURCE_LOGICAL_FOLDER">
-        <itemPath>Sources/TotalCrossSection/DefaultTotalCrossSection.cpp</itemPath>
-        <itemPath>Sources/TotalCrossSection/DefaultTotalCrossSection.h</itemPath>
       </logicalFolder>
       <itemPath>Sources/main.cpp</itemPath>
     </logicalFolder>
@@ -79,18 +75,21 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>Sources</pElem>
+          </incDir>
+        </ccTool>
       </compileType>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>MinGW|MinGW</compilerSet>
-        <platform>3</platform>
       </toolsSet>
       <compileType>
         <cTool>
