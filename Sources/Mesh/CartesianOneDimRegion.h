@@ -14,6 +14,7 @@ public:
     CartesianOneDimRegion(double l_center, double l_thickness);
     CartesianOneDimRegion(const CartesianOneDimRegion& orig); 
     virtual ~CartesianOneDimRegion();
+    std::string toString() ;
 private:
     double center;
     double thickness;
