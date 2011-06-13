@@ -7,12 +7,14 @@
 
 #ifndef REGION_H
 #define	REGION_H
+#include <string>
 
 class Region {
 public:
     Region();
     Region(const Region& orig);
     virtual ~Region();
+    virtual std::string toString() = 0 ;
 private:
 
 };

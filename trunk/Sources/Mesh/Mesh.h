@@ -8,11 +8,15 @@
 #ifndef MESH_H
 #define	MESH_H
 
+#include <string>
+
 class Mesh {
 public:
     Mesh();
     Mesh(const Mesh& orig);
     virtual ~Mesh();
+    virtual std::string toString() = 0 ;
+    
 private:
 
 };

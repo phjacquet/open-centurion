@@ -15,4 +15,3 @@ Region::Region(const Region& orig) {
 
 Region::~Region() {
 }
-
