@@ -10,7 +10,7 @@
 
 #include<vector>
 
-class CartesianOneDimMesh {
+class CartesianOneDimMesh : public Mesh {
 public:
     CartesianOneDimMesh(std::vector<double> & nodesCoordinates);
     CartesianOneDimMesh(const CartesianOneDimMesh& orig);
