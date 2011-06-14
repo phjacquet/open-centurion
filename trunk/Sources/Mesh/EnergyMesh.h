@@ -9,14 +9,16 @@
 #define	ENERGYMESH_H
 
 #include "Mesh.h"
+#include "EnergyGroup.h"
 
 class EnergyMesh : public Mesh {
 public:
-    EnergyMesh();
+    EnergyMesh(const double* groupBoundaries, int size);
     EnergyMesh(const EnergyMesh& orig);
     virtual ~EnergyMesh();
+    
 private:
-
+    std::vector<EnergyGroup> energyGroups ;
 };
 
 #endif	/* ENERGYMESH_H */

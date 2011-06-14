@@ -16,3 +16,8 @@ ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig) {
 ProblemCrossSections::~ProblemCrossSections() {
 }
 
+CrossSection * ProblemCrossSections::getCrossSection(E_XS xs) {
+    return &xsMap.at(xs) ;
+}
+    
+

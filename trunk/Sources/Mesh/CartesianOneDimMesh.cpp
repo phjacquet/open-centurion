@@ -6,7 +6,7 @@
  */
 #include <sstream>
 #include "CartesianOneDimMesh.h"
-#include "Exception/InputConsistency.h"
+#include "Exceptions/InputConsistency.h"
 
 using namespace std ;
 

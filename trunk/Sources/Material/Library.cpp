@@ -9,8 +9,14 @@
 using namespace std;
 
 Library::Library(const string& fileName) {
+    double groupBoundaries[] = {18.0E6,1.0E-11};
+    energyMesh=new EnergyMesh(groupBoundaries, 1);
 }
 
 Library::~Library() {
+    delete energyMesh ;
 }
 
+EnergyMesh * Library::getEnergyMesh() {
+    return &energyMesh ;
+}

@@ -9,12 +9,16 @@
 
 using namespace std;
 
-Geometry::Geometry(const Mesh & l_spatialMesh, const Library& l_library) {
-    
+Geometry::Geometry(Mesh * l_spatialMesh, Library& l_library) {
+    spatialMesh = l_spatialMesh ;
+    library = & l_library ;
+    energyMesh = library->getEnergyMesh();
 }
 
-void Geometry::fill(map< vector<Region>, vector<string,double> > mediumInMesh){
-    
+void Geometry::fill(const vector<Region *>& regions, vector< pair< string,double > > medium){
+    for (int region_id = 0 ; region_id < regions.size() ; region_id++) {
+        //problemMacroXS.getCrossSection(ProblemCrossSections.TOTAL) ;
+    }
 }
 
 ProblemCrossSections * Geometry::getXS() {
