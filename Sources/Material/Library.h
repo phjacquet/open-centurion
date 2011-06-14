@@ -9,16 +9,19 @@
 #define	LIBRARY_H
 #include <string>
 #include <map>
+#include "Mesh/EnergyMesh.h"
 #include "Sections/ProblemCrossSections.h"
 
 class Library {
 public:
     Library(const std::string& fileName);
     virtual ~Library();
+    EnergyMesh * getEnergyMesh() ;
 private:
     Library(const Library& orig);
     Library& operator=(const Library& );
     
+    EnergyMesh * energyMesh ;
     std::map<std::string, ProblemCrossSections> problemMicroXS ;
 };
 

@@ -16,8 +16,8 @@
 #include "Sections/ProblemCrossSections.h"
 class Geometry {
 public:
-    Geometry(const Mesh & l_spatialMesh, const Library& l_library);
-    void fill(std::map< std::vector<Region>, std::vector<std::string,double> > mediumInMesh);
+    Geometry(Mesh * l_spatialMesh, Library& l_library);
+    void fill(const std::vector<Region *> & regions, std::vector< std::pair< std::string,double > > medium);
     ProblemCrossSections * getXS();
     virtual ~Geometry();
 private:
@@ -26,6 +26,7 @@ private:
 
     Mesh *spatialMesh  ;
     Library *library  ;
+    EnergyMesh * energyMesh ;
     ProblemCrossSections problemMacroXS ;
 };
 

@@ -22,6 +22,8 @@ public:
         FISSION_DISTRIBUTION
     };
     
+    CrossSection * getCrossSection(E_XS xs) ;
+    
 private:
     ProblemCrossSections(const ProblemCrossSections& orig);
     ProblemCrossSections operator=(const ProblemCrossSections& orig);
