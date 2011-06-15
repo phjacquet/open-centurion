@@ -15,6 +15,7 @@ public:
     EnergyGroup(double l_energyLeft, double l_energyRight);
     EnergyGroup(const EnergyGroup& orig);
     virtual ~EnergyGroup();
+    std::string toString() ;
 private:
     double energyLeft;
     double energyRight;

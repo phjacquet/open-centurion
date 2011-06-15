@@ -6,6 +6,10 @@
                    projectFiles="true">
     </logicalFolder>
     <logicalFolder name="Sources" displayName="Sources" projectFiles="true">
+      <logicalFolder name="f2" displayName="Exceptions" projectFiles="true">
+        <itemPath>Sources/Exceptions/InputConsistency.cpp</itemPath>
+        <itemPath>Sources/Exceptions/InputConsistency.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Material" projectFiles="true">
         <itemPath>Sources/Material/Geometry.cpp</itemPath>
         <itemPath>Sources/Material/Geometry.h</itemPath>
@@ -17,6 +21,10 @@
         <itemPath>Sources/Mesh/CartesianOneDimMesh.h</itemPath>
         <itemPath>Sources/Mesh/CartesianOneDimRegion.cpp</itemPath>
         <itemPath>Sources/Mesh/CartesianOneDimRegion.h</itemPath>
+        <itemPath>Sources/Mesh/EnergyGroup.cpp</itemPath>
+        <itemPath>Sources/Mesh/EnergyGroup.h</itemPath>
+        <itemPath>Sources/Mesh/EnergyMesh.cpp</itemPath>
+        <itemPath>Sources/Mesh/EnergyMesh.h</itemPath>
         <itemPath>Sources/Mesh/Mesh.cpp</itemPath>
         <itemPath>Sources/Mesh/Mesh.h</itemPath>
         <itemPath>Sources/Mesh/Region.cpp</itemPath>
@@ -83,6 +91,7 @@
           <incDir>
             <pElem>Sources</pElem>
           </incDir>
+          <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
     </conf>
@@ -97,6 +106,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>Sources</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
