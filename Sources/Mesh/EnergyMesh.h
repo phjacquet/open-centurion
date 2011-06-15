@@ -8,6 +8,7 @@
 #ifndef ENERGYMESH_H
 #define	ENERGYMESH_H
 
+#include <vector>
 #include "Mesh.h"
 #include "EnergyGroup.h"
 
@@ -16,7 +17,7 @@ public:
     EnergyMesh(const double* groupBoundaries, int size);
     EnergyMesh(const EnergyMesh& orig);
     virtual ~EnergyMesh();
-    
+    std::string toString() ;
 private:
     std::vector<EnergyGroup> energyGroups ;
 };
