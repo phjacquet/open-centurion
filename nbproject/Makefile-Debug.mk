@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Sources/Sections/DefaultTotalCrossSection.o \
 	${OBJECTDIR}/Sources/Mesh/Region.o \
 	${OBJECTDIR}/Sources/Sections/FissionDistribution.o \
+	${OBJECTDIR}/Sources/Field/FieldIterator.o \
 	${OBJECTDIR}/Sources/Material/Geometry.o \
 	${OBJECTDIR}/Sources/Solution/ScalarSource.o \
 	${OBJECTDIR}/Sources/Exceptions/InputConsistency.o \
@@ -55,8 +56,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/Sources/Solution/FissionSource.o \
 	${OBJECTDIR}/Sources/Solution/ReactionRate.o \
 	${OBJECTDIR}/Sources/Sections/DefaultScatteringCrossSection.o \
-	${OBJECTDIR}/Sources/Solution/Flux.o \
-	${OBJECTDIR}/Sources/Material/Library.o
+	${OBJECTDIR}/Sources/Field/DoubleMeshField.o \
+	${OBJECTDIR}/Sources/Material/Library.o \
+	${OBJECTDIR}/Sources/Solution/Flux.o
 
 
 # C Compiler Flags
@@ -128,6 +130,11 @@ ${OBJECTDIR}/Sources/Sections/FissionDistribution.o: Sources/Sections/FissionDis
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/FissionDistribution.o Sources/Sections/FissionDistribution.cpp
 
+${OBJECTDIR}/Sources/Field/FieldIterator.o: Sources/Field/FieldIterator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Sources/Field
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Field/FieldIterator.o Sources/Field/FieldIterator.cpp
+
 ${OBJECTDIR}/Sources/Material/Geometry.o: Sources/Material/Geometry.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Sources/Material
 	${RM} $@.d
@@ -188,15 +195,20 @@ ${OBJECTDIR}/Sources/Sections/DefaultScatteringCrossSection.o: Sources/Sections/
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/DefaultScatteringCrossSection.o Sources/Sections/DefaultScatteringCrossSection.cpp
 
-${OBJECTDIR}/Sources/Solution/Flux.o: Sources/Solution/Flux.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Sources/Solution
+${OBJECTDIR}/Sources/Field/DoubleMeshField.o: Sources/Field/DoubleMeshField.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Sources/Field
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Solution/Flux.o Sources/Solution/Flux.cpp
+	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Field/DoubleMeshField.o Sources/Field/DoubleMeshField.cpp
 
 ${OBJECTDIR}/Sources/Material/Library.o: Sources/Material/Library.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Sources/Material
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Material/Library.o Sources/Material/Library.cpp
+
+${OBJECTDIR}/Sources/Solution/Flux.o: Sources/Solution/Flux.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Sources/Solution
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -ISources -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Solution/Flux.o Sources/Solution/Flux.cpp
 
 # Subprojects
 .build-subprojects:

@@ -10,6 +10,12 @@
         <itemPath>Sources/Exceptions/InputConsistency.cpp</itemPath>
         <itemPath>Sources/Exceptions/InputConsistency.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="Field" projectFiles="true">
+        <itemPath>Sources/Field/DoubleMeshField.cpp</itemPath>
+        <itemPath>Sources/Field/DoubleMeshField.h</itemPath>
+        <itemPath>Sources/Field/FieldIterator.cpp</itemPath>
+        <itemPath>Sources/Field/FieldIterator.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Material" projectFiles="true">
         <itemPath>Sources/Material/Geometry.cpp</itemPath>
         <itemPath>Sources/Material/Geometry.h</itemPath>
@@ -94,6 +100,24 @@
           <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -117,6 +141,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
     </conf>
   </confs>
 </configurationDescriptor>

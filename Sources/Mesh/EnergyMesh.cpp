@@ -39,7 +39,7 @@ EnergyMesh::~EnergyMesh() {
 string EnergyMesh::toString() {
     stringstream ss ;
     ss<<"EnergyMesh\n" ;
-    for (int i=0; i<energyGroups.size()-1; i++) {
+    for (unsigned int i=0; i<energyGroups.size()-1; i++) {
         ss<<energyGroups[i].toString()<<";";
     }
     ss<<energyGroups.back().toString() ;

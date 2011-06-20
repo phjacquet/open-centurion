@@ -15,8 +15,9 @@ public:
     Region(const Region& orig);
     virtual ~Region();
     virtual std::string toString() = 0 ;
+    std::string & getName() ;
 private:
-
+    std::string name ;
 };
 
 #endif	/* REGION_H */
