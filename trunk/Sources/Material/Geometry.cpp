@@ -16,7 +16,7 @@ Geometry::Geometry(Mesh * l_spatialMesh, Library& l_library) {
 }
 
 void Geometry::fill(const vector<Region *>& regions, vector< pair< string,double > > medium){
-    for (int region_id = 0 ; region_id < regions.size() ; region_id++) {
+    for (unsigned int region_id = 0 ; region_id < regions.size() ; region_id++) {
         //problemMacroXS.getCrossSection(ProblemCrossSections.TOTAL) ;
     }
 }

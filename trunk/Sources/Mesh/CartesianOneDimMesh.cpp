@@ -39,7 +39,7 @@ CartesianOneDimMesh::~CartesianOneDimMesh() {
 string CartesianOneDimMesh::toString() {
     stringstream ss ;
     ss<<"CartesianOneDimMesh\n" ;
-    for (int i=0; i<regions.size()-1; i++) {
+    for (unsigned int i=0; i<regions.size()-1; i++) {
         ss<<regions[i].toString()<<";";
     }
     ss<<regions.back().toString() ;

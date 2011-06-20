@@ -6,6 +6,7 @@
  */
 
 #include "Region.h"
+using namespace std;
 
 Region::Region() {
 }
@@ -14,4 +15,8 @@ Region::Region(const Region& orig) {
 }
 
 Region::~Region() {
+}
+
+string & Region::getName() {
+    return name ;
 }
