@@ -1,6 +1,6 @@
 /* 
  * File:   CartesianOneDimRegion.h
- * Author: Sab_n_Phil
+ * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
  * Created on 11 juin 2011, 19:06
  */

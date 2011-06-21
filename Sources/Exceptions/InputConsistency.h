@@ -1,6 +1,6 @@
 /* 
  * File:   InputConsistency.h
- * Author: Sab_n_Phil
+ * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
  * Created on 13 juin 2011, 03:22
  */
@@ -21,7 +21,7 @@ public:
     virtual ~InputConsistency() throw ();
 
 private:
-    int id; // Numéro de l'erreur.
+    int id; // NumÃƒÂ©ro de l'erreur.
     std::string description; // Description de l'erreur.
     int level; // Niveau de l'erreur.
 };

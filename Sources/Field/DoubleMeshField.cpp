@@ -1,13 +1,16 @@
 /* 
  * File:   DoubleMeshField.cpp
- * Author: Sab_n_Phil
+ * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  * 
  * Created on 15 juin 2011, 22:33
  */
 
 #include "DoubleMeshField.h"
 
-DoubleMeshField::DoubleMeshField(std::vector< std::pair< Mesh*, OptionMeshField> >& l_meshes) {
+using namespace std;
+
+
+DoubleMeshField::DoubleMeshField(vector< pair< Mesh*, OptionMeshField> >& l_meshes) {
 }
 
 DoubleMeshField::DoubleMeshField(const DoubleMeshField& orig) {
@@ -16,3 +19,6 @@ DoubleMeshField::DoubleMeshField(const DoubleMeshField& orig) {
 DoubleMeshField::~DoubleMeshField() {
 }
 
+void DoubleMeshField::buildFamily(Mesh* mesh, vector<string> regionsName, string familyName) {
+    
+}

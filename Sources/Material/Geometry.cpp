@@ -1,6 +1,6 @@
 /* 
  * File:   Geometry.cpp
- * Author: Sab_n_Phil
+ * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  * 
  * Created on 12 juin 2011, 22:32
  */
