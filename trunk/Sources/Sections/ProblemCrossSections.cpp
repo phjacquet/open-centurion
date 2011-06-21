@@ -17,7 +17,7 @@ ProblemCrossSections::~ProblemCrossSections() {
 }
 
 CrossSection * ProblemCrossSections::getCrossSection(E_XS xs) {
-    return &xsMap.at(xs) ;
+    return & (xsMap.find(xs)->second) ;
 }
     
 
