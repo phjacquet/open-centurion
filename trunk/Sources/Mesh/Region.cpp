@@ -1,6 +1,6 @@
 /* 
  * File:   Region.cpp
- * Author: Sab_n_Phil
+ * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  * 
  * Created on 13 juin 2011, 01:46
  */
