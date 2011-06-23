@@ -11,7 +11,7 @@
 
 class CartesianOneDimRegion : public Region {
 public:
-    CartesianOneDimRegion(double l_center, double l_thickness);
+    CartesianOneDimRegion(double l_center, double l_thickness, std::string l_name);
     CartesianOneDimRegion(const CartesianOneDimRegion& orig); 
     virtual ~CartesianOneDimRegion();
     std::string toString() ;

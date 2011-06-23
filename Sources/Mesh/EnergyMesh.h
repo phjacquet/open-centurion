@@ -14,11 +14,15 @@
 
 class EnergyMesh : public Mesh {
 public:
-    EnergyMesh(const double* groupBoundaries, int size);
+    EnergyMesh(const double* groupBoundaries, uint32_t size);
     EnergyMesh(const EnergyMesh& orig);
     virtual ~EnergyMesh();
+    Region* getRegion(uint32_t n) ;
+    uint32_t size() ;
+    
     std::string toString() ;
 private:
+    
     std::vector<EnergyGroup> energyGroups ;
 };
 

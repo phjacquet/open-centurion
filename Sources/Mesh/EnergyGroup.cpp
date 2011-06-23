@@ -10,14 +10,16 @@
 
 using namespace std ;
 
-EnergyGroup::EnergyGroup(double l_energyLeft, double l_energyRight) {
+EnergyGroup::EnergyGroup(double l_energyLeft, double l_energyRight, string l_name) {
     energyLeft = l_energyLeft ;
     energyRight = l_energyRight ;
+    name = l_name ;
 }
 
 EnergyGroup::EnergyGroup(const EnergyGroup& orig) {
     energyLeft = orig.energyLeft ;
     energyRight = orig.energyRight ;
+    name = orig.name ;
 }
 
 EnergyGroup::~EnergyGroup() {
@@ -25,6 +27,6 @@ EnergyGroup::~EnergyGroup() {
 
 string EnergyGroup::toString() {
     stringstream ss ;
-    ss<<"["<<energyLeft<<","<<energyRight<<"]"; 
+    ss<<"[ <"<<name<<"> "<<energyLeft<<","<<energyRight<<"]"; 
     return ss.str();
 }

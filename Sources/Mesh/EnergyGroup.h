@@ -12,7 +12,7 @@
 
 class EnergyGroup : public Region {
 public:
-    EnergyGroup(double l_energyLeft, double l_energyRight);
+    EnergyGroup(double l_energyLeft, double l_energyRight, std::string l_name);
     EnergyGroup(const EnergyGroup& orig);
     virtual ~EnergyGroup();
     std::string toString() ;

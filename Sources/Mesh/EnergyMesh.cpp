@@ -7,24 +7,25 @@
 
 #include <stdexcept>
 #include <sstream>
+#include <stdlib.h>
 #include "EnergyMesh.h"
 #include "EnergyGroup.h"
 #include "Exceptions/InputConsistency.h"
 
 using namespace std ;
 
-EnergyMesh::EnergyMesh(const double* groupBoundaries, int size) {
+EnergyMesh::EnergyMesh(const double* groupBoundaries, uint32_t size) {
     if (size<2)
         throw InputConsistency(3,LOG_INP_CONS_E("Incorrect size of nodes array")) ;
     energyGroups.clear() ;
     energyGroups.reserve(size-1) ;
-    for (int i=0; i<size-1; i++) {
+    for (uint32_t i=0; i<size-1; i++) {
         double boundaryLeft = groupBoundaries[i] ;
         double boundaryRight = groupBoundaries[i+1] ;
         if (boundaryLeft <= boundaryRight) {
             throw InputConsistency(4,LOG_INP_CONS_E("Bad group boundaries order")) ;
         }
-        energyGroups.push_back(EnergyGroup(boundaryLeft, boundaryRight));
+        energyGroups.push_back( EnergyGroup(boundaryLeft, boundaryRight, itoa(i, new char[8], 8) ) );
     }
 }
 
@@ -36,10 +37,18 @@ EnergyMesh::EnergyMesh(const EnergyMesh& orig) {
 EnergyMesh::~EnergyMesh() {
 }
 
+Region* EnergyMesh::getRegion(uint32_t n) {
+    return &energyGroups[n] ;
+}
+
+uint32_t EnergyMesh::size()  {
+    return energyGroups.size();
+}
+
 string EnergyMesh::toString() {
     stringstream ss ;
     ss<<"EnergyMesh\n" ;
-    for (unsigned int i=0; i<energyGroups.size()-1; i++) {
+    for (uint32_t i=0; i < energyGroups.size()-1; i++) {
         ss<<energyGroups[i].toString()<<";";
     }
     ss<<energyGroups.back().toString() ;

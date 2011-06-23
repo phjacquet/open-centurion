@@ -23,7 +23,9 @@ public:
     DoubleMeshField(const DoubleMeshField& orig);
     virtual ~DoubleMeshField();
     FieldIterator iterator() ;
-    void buildFamily(Mesh* mesh, std::vector<std::string> regionsName, std::string familyName) ;
+    void buildFamily(uint32_t meshIndex, std::vector<std::string> regionsName, std::string familyName) ;
+    void buildData() ;
+    void clearFamilies() ;
     void setDouble(FieldIterator & it, double d);
     double & getDouble(FieldIterator & it);
     DoubleMeshField & focus(FieldIterator & it);
@@ -32,10 +34,13 @@ public:
     DoubleMeshField operator=(const DoubleMeshField& orig);
     
 private:
+    void buildFullMeshesMapping() ;
     std::vector<Mesh *> meshes ;
     std::vector<OptionMeshField> options ;
+    std::vector<uint32_t> sizes ;
     std::vector< std::map<std::string,int> > mappings ;
     std::vector<double> data ;
+    bool lock ;
 };
 
 #endif	/* DOUBLEMESHFIELD_H */

@@ -10,14 +10,16 @@
 
 using namespace std;
 
-CartesianOneDimRegion::CartesianOneDimRegion(double l_center, double l_thickness) {
+CartesianOneDimRegion::CartesianOneDimRegion(double l_center, double l_thickness, string l_name) {
     center=l_center;
     thickness=l_thickness;
+    name = l_name ;
 }
 
 CartesianOneDimRegion::CartesianOneDimRegion(const CartesianOneDimRegion& orig) {
     center=orig.center;
     thickness=orig.thickness;
+    name=orig.name ;
 }
 
 CartesianOneDimRegion::~CartesianOneDimRegion() {
@@ -25,6 +27,6 @@ CartesianOneDimRegion::~CartesianOneDimRegion() {
 
 std::string CartesianOneDimRegion::toString() {
     stringstream ss ;
-    ss<<"["<<center-thickness/2.<<","<<center+thickness/2<<"]";
+    ss<<"[ <"<<name<<"> "<<center-thickness/2.<<","<<center+thickness/2<<"]";
     return ss.str();
 }
