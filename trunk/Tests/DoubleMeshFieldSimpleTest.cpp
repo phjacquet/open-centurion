@@ -30,19 +30,49 @@ void constructorTest() {
     meshes.push_back(pair< Mesh*, DoubleMeshField::OptionMeshField>(mesh2, DoubleMeshField::LAZY)) ;
     std::cout << "DoubleMeshFieldTest constructorTest" << std::endl;
     DoubleMeshField dmf(meshes);
+    std::cout << "DoubleMeshField built" << std::endl;
     vector<string> reg ;
     try {
         reg.clear() ;
         reg.push_back("0") ;
         reg.push_back("1") ;
-        dmf.buildFamily(mesh2, reg, "A") ;
+        dmf.buildFamily(1, reg, "A") ;
+        cout << "passed" << endl;
     }    catch (const exception & e) {
         cout << e.what() << endl;
         cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
     }
+    try {
+        reg.clear() ;
+        reg.push_back("0") ;
+        reg.push_back("1") ;
+        dmf.buildFamily(1, reg, "A") ;
+        cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
+    }    catch (const exception & e) {
+        cout << e.what() << endl;
+        cout << "passed" << endl;
+        }
     
-}
+    try {
+        reg.clear() ;
+        reg.push_back("2") ;
+        dmf.buildFamily(1, reg, "A") ;
+        cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
+    }    catch (const exception & e) {
+        cout << e.what() << endl;
+        cout << "passed" << endl;
+        }
 
+        try {
+        reg.clear() ;
+        reg.push_back("2") ;
+        dmf.buildFamily(1, reg, "B") ;
+        cout << "passed" << endl;
+    }    catch (const exception & e) {
+        cout << e.what() << endl;
+        cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
+    }
+}
 
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% DoubleMeshFieldTest" << std::endl;

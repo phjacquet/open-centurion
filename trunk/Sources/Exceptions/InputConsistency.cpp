@@ -5,6 +5,14 @@
  * Created on 13 juin 2011, 01:43
  */
 
+//1: CartesianOneDimMesh constructor, array size
+//2: CartesianOneDimMesh constructor, node order
+//3: EnergyMesh constructor, array size
+//4: EnergyMesh constructor, node order
+//5: DoubleMeshField buildFamily(), for bad mesh option
+//6: DoubleMeshField buildFamily(), for bad family definition
+
+
 #include <sstream>
 #include "InputConsistency.h"
 using namespace std;

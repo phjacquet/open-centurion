@@ -9,16 +9,18 @@
 #define	MESH_H
 
 #include <string>
+#include <Region.h>
 
 class Mesh {
 public:
     Mesh();
     Mesh(const Mesh& orig);
     virtual ~Mesh();
-    virtual std::string toString() = 0 ;
-    
+    virtual Region* getRegion(uint32_t n) = 0 ;
+    virtual uint32_t size() = 0 ;
+    virtual std::string toString() = 0 ;    
 private:
-
+    
 };
 
 #endif	/* MESH_H */

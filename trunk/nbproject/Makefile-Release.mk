@@ -65,8 +65,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f1
 
 # C Compiler Flags
 CFLAGS=
@@ -226,21 +225,11 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o ${OBJECTFI
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/Tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
-	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
-
 
 ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o: Tests/DoubleMeshFieldSimpleTest.cpp 
 	${MKDIR} -p ${TESTDIR}/Tests
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -ISources -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o Tests/DoubleMeshFieldSimpleTest.cpp
-
-
-${TESTDIR}/Tests/newsimpletest.o: Tests/newsimpletest.cpp 
-	${MKDIR} -p ${TESTDIR}/Tests
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -ISources -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/newsimpletest.o Tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion_nomain.o: ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion.o Sources/Mesh/CartesianOneDimRegion.cpp 
@@ -573,7 +562,6 @@ ${OBJECTDIR}/Sources/Solution/Flux_nomain.o: ${OBJECTDIR}/Sources/Solution/Flux.
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
-	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

@@ -80,12 +80,6 @@
                      kind="TEST">
         <itemPath>Tests/DoubleMeshFieldSimpleTest.cpp</itemPath>
       </logicalFolder>
-      <logicalFolder name="f2"
-                     displayName="New C++ Simple Test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>Tests/newsimpletest.cpp</itemPath>
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -114,6 +108,7 @@
           <incDir>
             <pElem>Sources</pElem>
             <pElem>.</pElem>
+            <pElem>Sources/Mesh</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
