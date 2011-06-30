@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Centurion_v0
+PROJECTNAME=open-centurion
 
 # Active Configuration
 DEFAULTCONF=Debug

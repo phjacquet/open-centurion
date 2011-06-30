@@ -33,6 +33,7 @@ void constructorTest() {
     std::cout << "DoubleMeshField built" << std::endl;
     vector<string> reg ;
     try {
+        cout << "subtest 1" << endl;
         reg.clear() ;
         reg.push_back("0") ;
         reg.push_back("1") ;
@@ -43,6 +44,7 @@ void constructorTest() {
         cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
     }
     try {
+        cout << "subtest 2" << endl;
         reg.clear() ;
         reg.push_back("0") ;
         reg.push_back("1") ;
@@ -54,6 +56,7 @@ void constructorTest() {
         }
     
     try {
+        cout << "subtest 3" << endl;
         reg.clear() ;
         reg.push_back("2") ;
         dmf.buildFamily(1, reg, "A") ;
@@ -63,7 +66,8 @@ void constructorTest() {
         cout << "passed" << endl;
         }
 
-        try {
+    try {
+        cout << "subtest 4" << endl;
         reg.clear() ;
         reg.push_back("2") ;
         dmf.buildFamily(1, reg, "B") ;
