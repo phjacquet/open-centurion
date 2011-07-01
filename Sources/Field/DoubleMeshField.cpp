@@ -90,3 +90,18 @@ void DoubleMeshField::buildData() {
     }
     else throw InputConsistency(7,LOG_INP_CONS_E("mapping has not be done on every mesh")) ;
 }
+
+
+void DoubleMeshField::setDouble(FieldIterator & it, double d) {
+    if (lock == true)
+        throw runtime_error("DoubleMeshField::setDouble(FieldIterator & it, double d) : DoubleMeshField is locked") ;
+    int idx = 0;
+    for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
+        idx = idx*sizes[meshIndex];
+        idx += mappings[meshIndex][it.get(meshIndex,0)] ;
+    }
+    data[idx] = d ;
+}
+double DoubleMeshField::getDouble(FieldIterator & it) {
+    return 0 ;
+}
