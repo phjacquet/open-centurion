@@ -27,7 +27,7 @@ public:
     void buildData() ;
     void clearFamilies() ;
     void setDouble(FieldIterator & it, double d);
-    double & getDouble(FieldIterator & it);
+    double getDouble(FieldIterator & it);
     DoubleMeshField & focus(FieldIterator & it);
     DoubleMeshField & clearFocus(FieldIterator & it);
     

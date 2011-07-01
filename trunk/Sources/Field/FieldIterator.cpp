@@ -6,8 +6,11 @@
  */
 
 #include "FieldIterator.h"
+using namespace std ;
 
-FieldIterator::FieldIterator(std::vector<Mesh * > * l_meshes) {
+FieldIterator::FieldIterator(string s0, string s1) {
+    locData.resize(2) ;
+    locData[0].pushback(s0)
 }
 
 FieldIterator::FieldIterator(const FieldIterator& orig) {
@@ -16,3 +19,6 @@ FieldIterator::FieldIterator(const FieldIterator& orig) {
 FieldIterator::~FieldIterator() {
 }
 
+string FieldIterator::string get(int meshIndex, int regionIndex) {
+    return locData[meshIndex][regionIndex] ;
+}

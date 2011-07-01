@@ -15,9 +15,11 @@ public:
     FieldIterator(std::vector<Mesh * > * l_meshes);
     FieldIterator(const FieldIterator& orig);
     virtual ~FieldIterator();
+    std::string get(int meshIndex, int regionIndex);
 private:
     std::vector<Mesh * > * meshes ;
     std::vector<std::string> meshIndexes;
+    std::vector< std::vector< std::string>  > locData ;
 };
 
 #endif	/* FIELDITERATOR_H */

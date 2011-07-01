@@ -9,7 +9,7 @@
 #define	MESH_H
 
 #include <string>
-#include <Region.h>
+#include <Mesh/Region.h>
 
 class Mesh {
 public:
