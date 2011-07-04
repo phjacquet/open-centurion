@@ -12,9 +12,10 @@
 #include "Mesh/Mesh.h"
 class FieldIterator {
 public:
-    FieldIterator(std::vector<Mesh * > * l_meshes);
+    FieldIterator(std::string s0, std::string s1);
     FieldIterator(const FieldIterator& orig);
     virtual ~FieldIterator();
+    static FieldIterator create(std::string s0, std::string s1) ;
     std::string get(int meshIndex, int regionIndex);
 private:
     std::vector<Mesh * > * meshes ;

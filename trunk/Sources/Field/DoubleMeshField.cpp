@@ -89,19 +89,31 @@ void DoubleMeshField::buildData() {
         data.resize(size,0.); 
     }
     else throw InputConsistency(7,LOG_INP_CONS_E("mapping has not be done on every mesh")) ;
+    lock = false ;
 }
 
 
-void DoubleMeshField::setDouble(FieldIterator & it, double d) {
+void DoubleMeshField::setDouble(FieldIterator * it, double d) {
     if (lock == true)
-        throw runtime_error("DoubleMeshField::setDouble(FieldIterator & it, double d) : DoubleMeshField is locked") ;
+        throw runtime_error("DoubleMeshField::setDouble(FieldIterator * it, double d) : DoubleMeshField is locked") ;
+    if (it == NULL)
+        throw runtime_error("DoubleMeshField::setDouble(FieldIterator * it, double d) : it is null") ;
     int idx = 0;
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         idx = idx*sizes[meshIndex];
-        idx += mappings[meshIndex][it.get(meshIndex,0)] ;
+        idx += mappings[meshIndex][it->get(meshIndex,0)] ;
     }
     data[idx] = d ;
 }
-double DoubleMeshField::getDouble(FieldIterator & it) {
-    return 0 ;
+double DoubleMeshField::getDouble(FieldIterator * it) {
+    if (lock == true)
+        throw runtime_error("DoubleMeshField::getDouble(FieldIterator * it) : DoubleMeshField is locked") ;
+    if (it == NULL)
+        throw runtime_error("DoubleMeshField::getDouble(FieldIterator * it) : it is null") ;
+    int idx = 0;
+    for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
+        idx = idx*sizes[meshIndex];
+        idx += mappings[meshIndex][it->get(meshIndex,0)] ;
+    }
+    return data[idx] ;
 }

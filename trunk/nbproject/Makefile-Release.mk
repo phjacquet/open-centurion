@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc.exe
 CCC=g++.exe
 CXX=g++.exe
-FC=gfortran
+FC=gfortran.exe
 AS=as.exe
 
 # Macros
@@ -229,7 +229,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o ${OBJECTFI
 ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o: Tests/DoubleMeshFieldSimpleTest.cpp 
 	${MKDIR} -p ${TESTDIR}/Tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -ISources -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o Tests/DoubleMeshFieldSimpleTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -ISources -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o Tests/DoubleMeshFieldSimpleTest.cpp
 
 
 ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion_nomain.o: ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion.o Sources/Mesh/CartesianOneDimRegion.cpp 
