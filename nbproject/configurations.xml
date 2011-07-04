@@ -112,7 +112,7 @@
             <pElem>Sources/Mesh</pElem>
             <pElem>.</pElem>
           </incDir>
-          <warningLevel>2</warningLevel>
+          <warningLevel>3</warningLevel>
         </ccTool>
         <linkerTool>
           <output>cible.exe</output>
@@ -124,10 +124,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -175,10 +177,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
