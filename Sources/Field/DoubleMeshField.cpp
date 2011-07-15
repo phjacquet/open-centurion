@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 #include "DoubleMeshField.h"
 #include "Exceptions/InputConsistency.h"
 
@@ -58,7 +59,7 @@ void DoubleMeshField::buildFamily(uint32_t meshIndex, vector<string> regionsName
         if (mappings[meshIndex].find(regionsName[r]) != mappings[meshIndex].end() ) 
             throw InputConsistency(6,LOG_INP_CONS_E(string("Region ")+regionsName[r]+ " is already mapped")) ;
     }
-    
+
     if (options[meshIndex] == LAZY) {
         for (uint32_t r = 0; r < regionsName.size() ; r++) {
             string rname = regionsName[r] ;
@@ -101,7 +102,13 @@ void DoubleMeshField::setDouble(FieldIterator * it, double d) {
     int idx = 0;
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         idx = idx*sizes[meshIndex];
-        idx += mappings[meshIndex][it->get(meshIndex,0)] ;
+        string & s_it = it->get(meshIndex,0) ;
+        if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
+            stringstream err;
+            err<<"DoubleMeshField::getDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
+            throw runtime_error(err.str().c_str()) ;
+        }
+        idx += mappings[meshIndex][s_it] ;
     }
     data[idx] = d ;
 }
@@ -113,7 +120,13 @@ double DoubleMeshField::getDouble(FieldIterator * it) {
     int idx = 0;
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         idx = idx*sizes[meshIndex];
-        idx += mappings[meshIndex][it->get(meshIndex,0)] ;
+        string & s_it = it->get(meshIndex,0) ;
+        if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
+            stringstream err;
+            err<<"DoubleMeshField::getDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
+            throw runtime_error(err.str().c_str()) ;
+        }
+        idx += mappings[meshIndex][s_it] ;
     }
     return data[idx] ;
 }

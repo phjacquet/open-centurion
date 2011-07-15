@@ -89,19 +89,47 @@ void ioTest() {
     meshes.push_back(pair< Mesh*, DoubleMeshField::OptionMeshField>(mesh2, DoubleMeshField::LAZY)) ;
     DoubleMeshField dmf(meshes);
     vector<string> reg ;
-
-    reg.clear() ;
-    reg.push_back("0") ;
-    reg.push_back("1") ;
-    dmf.buildFamily(1, reg, "A") ;
     try {
+        reg.clear() ;
+        reg.push_back("0") ;
+        reg.push_back("1") ;
+        dmf.buildFamily(1, reg, "A") ;
+        reg.clear() ;
+        reg.push_back("2") ;
+        reg.push_back("3") ;
+        dmf.buildFamily(1, reg, "B") ;
+
+        FieldIterator fit = FieldIterator::create("0","0");
+
         cout << "subtest 1" << endl;
         dmf.buildData() ;
         cout << "passed" << endl;
         cout << "subtest 2" << endl;
-        cout<<dmf.getDouble(&FieldIterator::create("0","0"))<<endl;
-        dmf.setDouble(&FieldIterator::create("0","0"),1.) ;
-        cout<<dmf.getDouble(&FieldIterator::create("0","0"))<<endl;
+        cout<<"dmf(0,0) = "<<dmf.getDouble(&fit)<<endl;
+        dmf.setDouble(&fit,1.) ;
+        cout<<"set dmf(0,0) to "<<1<<endl;
+        cout<<"dmf(0,0) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("0","1");
+        cout<<"dmf(0,1) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("0","2");
+        cout<<"dmf(0,2) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("0","3");
+        cout<<"dmf(0,3) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("0","A");
+        cout<<"dmf(0,A) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("1","A");
+        cout<<"dmf(1,A) = "<<dmf.getDouble(&fit)<<endl;
+        dmf.setDouble(&fit,5.) ;
+        cout<<"set dmf(1,A) to "<<5<<endl;
+        cout<<"dmf(1,A) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("1","0");
+        cout<<"dmf(1,0) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("1","1");
+        cout<<"dmf(1,1) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("1","2");
+        cout<<"dmf(1,2) = "<<dmf.getDouble(&fit)<<endl;
+        fit=FieldIterator::create("2","A");
+        cout<<"dmf(2,A) = "<<dmf.getDouble(&fit)<<endl;
         cout << "passed" << endl;
     }    catch (const exception & e) {
         cout << e.what() << endl;
