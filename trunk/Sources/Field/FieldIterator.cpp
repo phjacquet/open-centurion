@@ -15,7 +15,9 @@ FieldIterator::FieldIterator(string s0, string s1) {
 }
 
 FieldIterator::FieldIterator(const FieldIterator& orig) {
-    throw runtime_error("FieldIterator::FieldIterator(const FieldIterator& orig) : Unimplemented method") ;
+    locData = orig.locData ;
+    meshes = orig.meshes ;
+    meshIndexes = orig.meshIndexes ;
 }
 
 FieldIterator::~FieldIterator() {
@@ -25,6 +27,6 @@ FieldIterator FieldIterator::create(string s0, string s1) {
     return FieldIterator(s0,s1);
 }
 
-string FieldIterator::get(int meshIndex, int regionIndex) {
+string&  FieldIterator::get(int meshIndex, int regionIndex) {
     return locData[meshIndex][regionIndex] ;
 }
