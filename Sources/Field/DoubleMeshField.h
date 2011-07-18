@@ -26,10 +26,11 @@ public:
     void buildFamily(uint32_t meshIndex, std::vector<std::string> regionsName, std::string familyName) ;
     void buildData() ;
     void clearFamilies() ;
-    void setDouble(FieldIterator * it, double d);
-    double getDouble(FieldIterator * it);
+    void setDouble(FieldIterator & it, double d);
+    double getDouble(FieldIterator & it);
     DoubleMeshField & focus(FieldIterator & it);
     DoubleMeshField & clearFocus(FieldIterator & it);
+    FieldIterator getIterator() ;
     
     DoubleMeshField operator=(const DoubleMeshField& orig);
     

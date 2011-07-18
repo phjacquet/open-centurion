@@ -6,26 +6,29 @@
  */
 #include <stdexcept>
 #include "FieldIterator.h"
+#include "DoubleMeshField.h"
+#include <cstdarg>
+
 using namespace std ;
 
-FieldIterator::FieldIterator(string s0, string s1) {
-    locData.resize(2) ;
-    locData[0].push_back(s0) ;
-    locData[1].push_back(s1) ;
+FieldIterator::FieldIterator(DoubleMeshField * l_dmf) {
+    dmf=l_dmf ;
 }
 
 FieldIterator::FieldIterator(const FieldIterator& orig) {
     locData = orig.locData ;
-    meshes = orig.meshes ;
-    meshIndexes = orig.meshIndexes ;
+    dmf = orig.dmf ;
 }
 
 FieldIterator::~FieldIterator() {
 }
 
-FieldIterator FieldIterator::create(string s0, string s1) {
-    return FieldIterator(s0,s1);
+FieldIterator & FieldIterator::operator()( vector< string>  reg) {
+    for (int nArg=0; nArg < reg.size() ; nArg++)
+        locData[nArg].push_back(reg[nArg]);
+    return *this ;
 }
+
 
 string&  FieldIterator::get(int meshIndex, int regionIndex) {
     return locData[meshIndex][regionIndex] ;
