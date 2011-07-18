@@ -29,6 +29,10 @@ DoubleMeshField::DoubleMeshField(const DoubleMeshField& orig) {
     throw runtime_error("DoubleMeshField::DoubleMeshField(const DoubleMeshField& orig) : Unimplemented method") ;
 }
 
+DoubleMeshField DoubleMeshField::operator=(const DoubleMeshField& orig) {
+    throw runtime_error("DoubleMeshField::operator=(const DoubleMeshField& orig) : Unimplemented method") ;
+}
+
 DoubleMeshField::~DoubleMeshField() {
 }
 
@@ -94,15 +98,13 @@ void DoubleMeshField::buildData() {
 }
 
 
-void DoubleMeshField::setDouble(FieldIterator * it, double d) {
+void DoubleMeshField::setDouble(FieldIterator & it, double d) {
     if (lock == true)
         throw runtime_error("DoubleMeshField::setDouble(FieldIterator * it, double d) : DoubleMeshField is locked") ;
-    if (it == NULL)
-        throw runtime_error("DoubleMeshField::setDouble(FieldIterator * it, double d) : it is null") ;
     int idx = 0;
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         idx = idx*sizes[meshIndex];
-        string & s_it = it->get(meshIndex,0) ;
+        string & s_it = it.get(meshIndex,0) ;
         if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
             stringstream err;
             err<<"DoubleMeshField::getDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
@@ -112,15 +114,13 @@ void DoubleMeshField::setDouble(FieldIterator * it, double d) {
     }
     data[idx] = d ;
 }
-double DoubleMeshField::getDouble(FieldIterator * it) {
+double DoubleMeshField::getDouble(FieldIterator & it) {
     if (lock == true)
         throw runtime_error("DoubleMeshField::getDouble(FieldIterator * it) : DoubleMeshField is locked") ;
-    if (it == NULL)
-        throw runtime_error("DoubleMeshField::getDouble(FieldIterator * it) : it is null") ;
     int idx = 0;
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         idx = idx*sizes[meshIndex];
-        string & s_it = it->get(meshIndex,0) ;
+        string & s_it = it.get(meshIndex,0) ;
         if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
             stringstream err;
             err<<"DoubleMeshField::getDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
@@ -129,4 +129,8 @@ double DoubleMeshField::getDouble(FieldIterator * it) {
         idx += mappings[meshIndex][s_it] ;
     }
     return data[idx] ;
+}
+
+FieldIterator DoubleMeshField::getIterator()  {
+    return FieldIterator(this) ;
 }

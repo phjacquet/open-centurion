@@ -10,19 +10,22 @@
 
 #include <vector>
 #include "Mesh/Mesh.h"
+
+class DoubleMeshField ;
+
 class FieldIterator {
 public:
-
     FieldIterator(const FieldIterator& orig);
     virtual ~FieldIterator();
-    static FieldIterator create(std::string s0, std::string s1) ;
-    std::string& get(int meshIndex, int regionIndex);
+    FieldIterator & operator()( std::vector< std::string>  reg );
 private:
-    FieldIterator(std::string s0, std::string s1);
+    FieldIterator(DoubleMeshField * l_dmf);
+    std::string& get(int meshIndex, int regionIndex);
 
-    std::vector<Mesh * > * meshes ;
-    std::vector<std::string> meshIndexes;
+    DoubleMeshField * dmf ;
     std::vector< std::vector< std::string>  > locData ;
+
+    friend class DoubleMeshField ;
 };
 
 #endif	/* FIELDITERATOR_H */
