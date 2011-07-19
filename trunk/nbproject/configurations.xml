@@ -43,10 +43,10 @@
         <itemPath>Sources/Sections/DefaultScatteringCrossSection.h</itemPath>
         <itemPath>Sources/Sections/DefaultTotalCrossSection.cpp</itemPath>
         <itemPath>Sources/Sections/DefaultTotalCrossSection.h</itemPath>
-        <itemPath>Sources/Sections/FissionCrossSection.cpp</itemPath>
-        <itemPath>Sources/Sections/FissionCrossSection.h</itemPath>
         <itemPath>Sources/Sections/FissionDistribution.cpp</itemPath>
         <itemPath>Sources/Sections/FissionDistribution.h</itemPath>
+        <itemPath>Sources/Sections/NuFissionCrossSection.cpp</itemPath>
+        <itemPath>Sources/Sections/NuFissionCrossSection.h</itemPath>
         <itemPath>Sources/Sections/ProblemCrossSections.cpp</itemPath>
         <itemPath>Sources/Sections/ProblemCrossSections.h</itemPath>
       </logicalFolder>

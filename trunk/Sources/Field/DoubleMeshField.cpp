@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include "DoubleMeshField.h"
+#include "Mesh/Mesh.h"
 #include "Exceptions/InputConsistency.h"
 
 using namespace std;
@@ -34,6 +35,14 @@ DoubleMeshField DoubleMeshField::operator=(const DoubleMeshField& orig) {
 }
 
 DoubleMeshField::~DoubleMeshField() {
+}
+
+uint32_t DoubleMeshField::numberOfMeshes() {
+    return meshes.size() ;
+}
+
+FieldIterator DoubleMeshField::getIterator()  {
+    return FieldIterator(this) ;
 }
 
 void DoubleMeshField::buildFullMeshesMapping() {
@@ -130,8 +139,4 @@ double DoubleMeshField::getDouble(FieldIterator & it) {
         idx += mappings[meshIndex][s_it] ;
     }
     return data[idx] ;
-}
-
-FieldIterator DoubleMeshField::getIterator()  {
-    return FieldIterator(this) ;
 }

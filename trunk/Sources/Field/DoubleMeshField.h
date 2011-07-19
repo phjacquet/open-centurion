@@ -11,7 +11,8 @@
 #include <vector>
 #include <map>
 #include "FieldIterator.h"
-#include "Mesh/Mesh.h"
+
+class Mesh ;
 
 class DoubleMeshField {
 public:
@@ -22,6 +23,7 @@ public:
     DoubleMeshField(std::vector< std::pair< Mesh*, OptionMeshField> >& l_meshes);
     DoubleMeshField(const DoubleMeshField& orig);
     virtual ~DoubleMeshField();
+    uint32_t numberOfMeshes() ;
     FieldIterator iterator() ;
     void buildFamily(uint32_t meshIndex, std::vector<std::string> regionsName, std::string familyName) ;
     void buildData() ;

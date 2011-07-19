@@ -49,8 +49,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/Sources/Exceptions/InputConsistency.o \
 	${OBJECTDIR}/Sources/main.o \
 	${OBJECTDIR}/Sources/Solution/ScalarSolution.o \
-	${OBJECTDIR}/Sources/Sections/FissionCrossSection.o \
 	${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o \
+	${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o \
 	${OBJECTDIR}/Sources/Mesh/EnergyMesh.o \
 	${OBJECTDIR}/Sources/Sections/CrossSection.o \
 	${OBJECTDIR}/Sources/Solution/FissionSource.o \
@@ -165,15 +165,15 @@ ${OBJECTDIR}/Sources/Solution/ScalarSolution.o: Sources/Solution/ScalarSolution.
 	${RM} $@.d
 	$(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Solution/ScalarSolution.o Sources/Solution/ScalarSolution.cpp
 
-${OBJECTDIR}/Sources/Sections/FissionCrossSection.o: Sources/Sections/FissionCrossSection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
-	${RM} $@.d
-	$(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/FissionCrossSection.o Sources/Sections/FissionCrossSection.cpp
-
 ${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o: Sources/Sections/ProblemCrossSections.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
 	${RM} $@.d
 	$(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o Sources/Sections/ProblemCrossSections.cpp
+
+${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o: Sources/Sections/NuFissionCrossSection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
+	${RM} $@.d
+	$(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o Sources/Sections/NuFissionCrossSection.cpp
 
 ${OBJECTDIR}/Sources/Mesh/EnergyMesh.o: Sources/Mesh/EnergyMesh.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Sources/Mesh
@@ -426,19 +426,6 @@ ${OBJECTDIR}/Sources/Solution/ScalarSolution_nomain.o: ${OBJECTDIR}/Sources/Solu
 	    ${CP} ${OBJECTDIR}/Sources/Solution/ScalarSolution.o ${OBJECTDIR}/Sources/Solution/ScalarSolution_nomain.o;\
 	fi
 
-${OBJECTDIR}/Sources/Sections/FissionCrossSection_nomain.o: ${OBJECTDIR}/Sources/Sections/FissionCrossSection.o Sources/Sections/FissionCrossSection.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/Sources/Sections/FissionCrossSection.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/FissionCrossSection_nomain.o Sources/Sections/FissionCrossSection.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/Sources/Sections/FissionCrossSection.o ${OBJECTDIR}/Sources/Sections/FissionCrossSection_nomain.o;\
-	fi
-
 ${OBJECTDIR}/Sources/Sections/ProblemCrossSections_nomain.o: ${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o Sources/Sections/ProblemCrossSections.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o`; \
@@ -450,6 +437,19 @@ ${OBJECTDIR}/Sources/Sections/ProblemCrossSections_nomain.o: ${OBJECTDIR}/Source
 	    $(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/ProblemCrossSections_nomain.o Sources/Sections/ProblemCrossSections.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Sources/Sections/ProblemCrossSections.o ${OBJECTDIR}/Sources/Sections/ProblemCrossSections_nomain.o;\
+	fi
+
+${OBJECTDIR}/Sources/Sections/NuFissionCrossSection_nomain.o: ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o Sources/Sections/NuFissionCrossSection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Sources/Sections
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Werror -ISources -I. -ISources/Mesh -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection_nomain.o Sources/Sections/NuFissionCrossSection.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection.o ${OBJECTDIR}/Sources/Sections/NuFissionCrossSection_nomain.o;\
 	fi
 
 ${OBJECTDIR}/Sources/Mesh/EnergyMesh_nomain.o: ${OBJECTDIR}/Sources/Mesh/EnergyMesh.o Sources/Mesh/EnergyMesh.cpp 

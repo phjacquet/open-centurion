@@ -5,6 +5,7 @@
  * Created on 1 juin 2011, 21:26
  */
 
+#include <cstdio>
 #include <stdexcept>
 #include <sstream>
 #include <basetsd.h>
@@ -27,7 +28,9 @@ CartesianOneDimMesh::CartesianOneDimMesh(const double* nodes, uint32_t size)  {
         if (thickness <= 0.) {
             throw InputConsistency(2,LOG_INP_CONS_E("Bad nodes order")) ;
         }
-        regions.push_back(CartesianOneDimRegion( center, thickness, itoa(i, new char[8], 8) ) );
+        stringstream ss ;
+        ss<<i ;
+        regions.push_back(CartesianOneDimRegion( center, thickness, ss.str() ) );
     }
 }
 
