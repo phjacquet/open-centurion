@@ -25,7 +25,9 @@ EnergyMesh::EnergyMesh(const double* groupBoundaries, uint32_t size) {
         if (boundaryLeft <= boundaryRight) {
             throw InputConsistency(4,LOG_INP_CONS_E("Bad group boundaries order")) ;
         }
-        energyGroups.push_back( EnergyGroup(boundaryLeft, boundaryRight, itoa(i, new char[8], 8) ) );
+        stringstream ss ;
+        ss<<i ;
+        energyGroups.push_back( EnergyGroup(boundaryLeft, boundaryRight, ss.str()) );
     }
 }
 

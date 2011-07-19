@@ -17,7 +17,7 @@ class FieldIterator {
 public:
     FieldIterator(const FieldIterator& orig);
     virtual ~FieldIterator();
-    FieldIterator & operator()( std::vector< std::string>  reg );
+    FieldIterator & operator()(  const std::string & expression  );
 private:
     FieldIterator(DoubleMeshField * l_dmf);
     std::string& get(int meshIndex, int regionIndex);
