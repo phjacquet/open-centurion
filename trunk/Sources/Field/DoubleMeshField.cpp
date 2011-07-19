@@ -79,6 +79,7 @@ void DoubleMeshField::clearFamilies() {
     for (uint32_t meshIndex = 0; meshIndex< meshes.size() ; meshIndex++) {
         if (options[meshIndex] == LAZY) {
             mappings[meshIndex].clear() ;
+            sizes[meshIndex] = 0 ;
         }
     }
 }
