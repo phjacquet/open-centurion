@@ -7,8 +7,10 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <sstream>
 
 #include <stdint.h>
+#include <stdexcept>
 #include "Field/DoubleMeshField.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/CartesianOneDimMesh.h"
@@ -105,22 +107,70 @@ void ioTest() {
         dmf.buildData() ;
         cout << "passed" << endl;
         cout << "subtest 2" << endl;
-        cout<<"dmf(0,0) = "<<dmf.getDouble(fit("0;0"))<<endl;
-        dmf.setDouble(fit("0;0"),1.) ;
-        cout<<"set dmf(0,0) to "<<1<<endl;
-        cout<<"dmf(0,0) = "<<dmf.getDouble(fit("0;0"))<<endl;
-        cout<<"dmf(0,1) = "<<dmf.getDouble(fit("0;1"))<<endl;
-        cout<<"dmf(0,2) = "<<dmf.getDouble(fit("0;2"))<<endl;
-        cout<<"dmf(0,3) = "<<dmf.getDouble(fit("0;3"))<<endl;
-        cout<<"dmf(0,A) = "<<dmf.getDouble(fit("0;A"))<<endl;
-        cout<<"dmf(1,A) = "<<dmf.getDouble(fit("1;A"))<<endl;
-        dmf.setDouble(fit("1;A"),5.) ;
-        cout<<"set dmf(1,A) to "<<5<<endl;
-        cout<<"dmf(1,A) = "<<dmf.getDouble(fit("1;A"))<<endl;
-        cout<<"dmf(1,0) = "<<dmf.getDouble(fit("1;0"))<<endl;
-        cout<<"dmf(1,1) = "<<dmf.getDouble(fit("1;1"))<<endl;
-        cout<<"dmf(1,2) = "<<dmf.getDouble(fit("1;2"))<<endl;
+        double expectedResult1[2][4]={ {0,0,0,0},{0,0,0,0} } ;
+        
+        for (uint32_t i=0; i < 2; i++)
+            for (uint32_t j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult1[i][j])
+                    throw runtime_error("Initialization Exception") ;
+            }
         cout << "passed" << endl;
+        cout << "subtest 3" << endl;
+        double expectedResult2[2][4]={ {1.,1.,0,0},{0,0,0,0} } ;
+        dmf.setDouble(fit("0;0"),1.) ;
+        for (uint32_t i=0; i < 2; i++)
+            for (uint32_t j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult2[i][j])
+                    throw runtime_error("set by family Exception") ;
+            }
+        cout << "passed" << endl;
+        cout << "subtest 4" << endl;
+        double expectedResult3[2][4]={ {1.,1.,0,0},{5.,5.,0,0} } ;
+        dmf.setDouble(fit("1;A"),5.) ;
+        for (uint32_t i=0; i < 2; i++)
+            for (uint32_t j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult3[i][j])
+                    throw runtime_error("set by family Exception") ;
+            }
+        cout << "passed" << endl;
+        cout << "subtest 5" << endl;
+        double expectedResult4[2][4]={ {3.,3.,2,2},{5.,5.,0,0} } ;
+        dmf.setDouble(fit("0;B"),2.) ;
+        dmf.setDouble(fit("0;1"),3.) ;
+        for (uint32_t i=0; i < 2; i++)
+            for (uint32_t j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult4[i][j])
+                    throw runtime_error("double set Exception") ;
+            }
+        cout << "passed" << endl;
+        
+        cout << "subtest 6" << endl;
+        double expectedResult5[2][4]={ {0,0,0,0},{0,0,0,0} } ;
+        dmf.clearFamilies() ;
+        reg.clear() ;
+        reg.push_back("0") ;
+        reg.push_back("1") ;
+        reg.push_back("2") ;
+        reg.push_back("3") ;
+        dmf.buildFamily(1, reg, "ALL") ;
+        dmf.buildData() ;
+        for (uint32_t i=0; i < 2; i++)
+            for (uint32_t j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult5[i][j])
+                    throw runtime_error("clearFamilies Exception") ;
+            }
+        cout << "passed" << endl;
+  
     }    catch (const exception & e) {
         cout << e.what() << endl;
         cout << "%TEST_FAILED% time=0 testname=ioTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
