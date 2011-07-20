@@ -52,7 +52,6 @@ void DoubleMeshField::buildFullMeshesMapping() {
             mappings[meshIndex].clear() ;
             for (uint32_t r = 0; r < meshes[meshIndex]->size() ; r++) {
                 string rname = meshes[meshIndex]->getRegion(r)->getName() ;
-                cout<<r<<":"<<rname<<endl;
                 mappings[meshIndex][rname] = r ;
             }
             sizes[meshIndex] = mappings[meshIndex].size() ;
