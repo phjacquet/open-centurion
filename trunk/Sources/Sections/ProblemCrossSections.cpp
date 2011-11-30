@@ -5,12 +5,16 @@
  * Created on 12 juin 2011, 23:06
  */
 
+#include <stdexcept>
 #include "ProblemCrossSections.h"
+
+using namespace std; 
 
 ProblemCrossSections::ProblemCrossSections() {
 }
 
 ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig) {
+    throw runtime_error("ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig)") ;
 }
 
 ProblemCrossSections::~ProblemCrossSections() {

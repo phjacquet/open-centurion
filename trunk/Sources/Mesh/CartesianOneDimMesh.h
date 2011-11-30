@@ -19,6 +19,7 @@ public:
     CartesianOneDimMesh(const CartesianOneDimMesh& orig);
     virtual ~CartesianOneDimMesh();
     Region* getRegion(uint32_t n) ;
+    Region* getRegion(std::string s)  ;
     uint32_t size() ;
     
     std::string toString() ;

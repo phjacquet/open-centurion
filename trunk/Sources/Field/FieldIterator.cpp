@@ -38,7 +38,7 @@ FieldIterator & FieldIterator::operator()( const string & expression ) {
         hl_extract = hl_buffer ;
         if (hl_extract.find(",") != string::npos) {
             stringstream ss_hl_extract(hl_extract) ;
-            throw runtime_error("FieldIterator::operator()( const string & expression ) : expression with multiple regions are not suported yet") ;
+            throw runtime_error("FieldIterator::operator()( const string & expression ) : N-Dim regions are not suported yet") ;
         }
         else {
             locData[meshIdx].clear() ;
@@ -50,6 +50,6 @@ FieldIterator & FieldIterator::operator()( const string & expression ) {
 }
 
 
-string&  FieldIterator::get(int meshIndex, int regionIndex) {
+string&  FieldIterator::get(uint32_t meshIndex, uint32_t regionIndex) {
     return locData[meshIndex][regionIndex] ;
 }

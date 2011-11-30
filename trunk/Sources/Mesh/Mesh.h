@@ -17,6 +17,7 @@ public:
     Mesh(const Mesh& orig);
     virtual ~Mesh();
     virtual Region* getRegion(uint32_t n) = 0 ;
+    virtual Region* getRegion(std::string s) = 0 ;
     virtual uint32_t size() = 0 ;
     virtual std::string toString() = 0 ;    
 private:
