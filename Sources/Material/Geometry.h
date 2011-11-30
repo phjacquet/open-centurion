@@ -10,14 +10,16 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "Library.h"
-#include "Mesh/Mesh.h"
-#include "Mesh/Region.h"
 #include "Sections/ProblemCrossSections.h"
+class Library ;
+class Mesh ;
+class EnergyMesh ;
+class Region ;
+
 class Geometry {
 public:
-    Geometry(Mesh * l_spatialMesh, Library& l_library);
-    void fill(const std::vector<Region *> & regions, std::vector< std::pair< std::string,double > > medium);
+    Geometry(Mesh * l_spatialMesh, Library * l_library);
+    void fill(const std::vector<std::string> & regionsName, std::vector< std::pair< std::string,double > > medium);
     ProblemCrossSections * getXS();
     virtual ~Geometry();
 private:

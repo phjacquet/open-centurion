@@ -68,6 +68,8 @@ void DoubleMeshField::buildFamily(uint32_t meshIndex, vector<string> regionsName
     if (mappings[meshIndex].find(familyName) != mappings[meshIndex].end() ) 
         throw InputConsistency(6,LOG_INP_CONS_E(string("Region ")+familyName+ " is already mapped")) ;
     for (uint32_t r = 0; r < regionsName.size() ; r++) {
+        if (meshes[meshIndex]->getRegion(regionsName[r]) == 0) 
+            throw InputConsistency(6,LOG_INP_CONS_E(string("Region ")+regionsName[r]+ " is a fictive region: operation forbidden")) ;
         if (mappings[meshIndex].find(regionsName[r]) != mappings[meshIndex].end() ) 
             throw InputConsistency(6,LOG_INP_CONS_E(string("Region ")+regionsName[r]+ " is already mapped")) ;
     }
@@ -116,7 +118,7 @@ void DoubleMeshField::setDouble(FieldIterator & it, double d) {
         string & s_it = it.get(meshIndex,0) ;
         if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
             stringstream err;
-            err<<"DoubleMeshField::getDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
+            err<<"DoubleMeshField::setDouble(FieldIterator * it) : it contains unknwon region id [ mesh="<<meshIndex<<", cell="<<s_it<<"]" ;
             throw runtime_error(err.str().c_str()) ;
         }
         idx += mappings[meshIndex][s_it] ;

@@ -43,6 +43,14 @@ Region* EnergyMesh::getRegion(uint32_t n) {
     return &energyGroups[n] ;
 }
 
+Region* EnergyMesh::getRegion(std::string s) {
+    uint32_t n ;
+    stringstream ss(s) ;
+    ss>>n ;
+    if (n>=energyGroups.size()) return 0 ;
+    else return &energyGroups[n] ;
+}
+
 uint32_t EnergyMesh::size()  {
     return energyGroups.size();
 }

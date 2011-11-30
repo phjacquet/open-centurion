@@ -78,13 +78,16 @@ void constructorTest() {
         cout << e.what() << endl;
         cout << "%TEST_FAILED% time=0 testname=constructorTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
     }
+    
+    delete mesh1 ;
+    delete mesh2 ;
 }
 
 void ioTest() {
     double gb[] = {18.0E6, 1E0, 1.0E-11};
-    double nodes[] = {0., 5., 10., 20.}; 
+    double nodes[] = {0., 5., 10., 20., 21.}; 
     Mesh * mesh1 = new EnergyMesh(gb, 3);
-    Mesh * mesh2 = new CartesianOneDimMesh(nodes, 4);
+    Mesh * mesh2 = new CartesianOneDimMesh(nodes, 5);
 
     vector< pair< Mesh*, DoubleMeshField::OptionMeshField> > meshes ;
     meshes.push_back(pair< Mesh*, DoubleMeshField::OptionMeshField>(mesh1, DoubleMeshField::FULL)) ;
@@ -125,7 +128,7 @@ void ioTest() {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult2[i][j])
-                    throw runtime_error("set by family Exception") ;
+                    throw runtime_error("set value Exception") ;
             }
         cout << "passed" << endl;
         cout << "subtest 4" << endl;
@@ -136,7 +139,7 @@ void ioTest() {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult3[i][j])
-                    throw runtime_error("set by family Exception") ;
+                    throw runtime_error("set value Exception") ;
             }
         cout << "passed" << endl;
         cout << "subtest 5" << endl;
@@ -148,7 +151,7 @@ void ioTest() {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult4[i][j])
-                    throw runtime_error("double set Exception") ;
+                    throw runtime_error("double set value Exception") ;
             }
         cout << "passed" << endl;
         
@@ -175,10 +178,10 @@ void ioTest() {
         cout << e.what() << endl;
         cout << "%TEST_FAILED% time=0 testname=ioTest (DoubleMeshFieldTest) message=Unexpected Exception" << endl;
     } 
+    
+    delete mesh1 ;
+    delete mesh2 ;
 }
-
-
-
 
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% DoubleMeshFieldTest" << std::endl;
@@ -186,7 +189,9 @@ int main(int argc, char** argv) {
 
     std::cout << "%TEST_STARTED% constructorTest (DoubleMeshFieldTest)" << std::endl;
     constructorTest();
-    std::cout << "%TEST_STARTED% constructorTest (DoubleMeshFieldTest)" << std::endl;
+    std::cout << "%TEST_FINISHED% time=0 constructorTest (DoubleMeshFieldTest)" << std::endl;
+
+    std::cout << "%TEST_STARTED% ioTest (DoubleMeshFieldTest)" << std::endl;
     ioTest();
     std::cout << "%TEST_FINISHED% time=0 ioTest (DoubleMeshFieldTest)" << std::endl;
 

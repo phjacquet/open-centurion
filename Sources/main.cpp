@@ -23,10 +23,11 @@ int main(int argc, char** argv) {
         double spatialNodes[] = {0., 10., 20., 30.};
         Mesh * spatialMesh = new CartesianOneDimMesh(spatialNodes, 4);
         cout << spatialMesh->toString() << endl;
-        Library lib("none");
+        Library *lib = new Library("none");
         Geometry geometry(spatialMesh, lib);
         
         delete spatialMesh;
+        delete lib ;
         // End of Data File
     }    catch (const exception & e) {
         cout << e.what() << endl;

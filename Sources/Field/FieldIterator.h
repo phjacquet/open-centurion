@@ -20,7 +20,7 @@ public:
     FieldIterator & operator()(  const std::string & expression  );
 private:
     FieldIterator(DoubleMeshField * l_dmf);
-    std::string& get(int meshIndex, int regionIndex);
+    std::string& get(uint32_t meshIndex, uint32_t regionIndex);
 
     DoubleMeshField * dmf ;
     std::vector< std::vector< std::string>  > locData ;

@@ -4,7 +4,6 @@
  * 
  * Created on 1 juin 2011, 21:26
  */
-
 #include <cstdio>
 #include <stdexcept>
 #include <sstream>
@@ -43,6 +42,14 @@ CartesianOneDimMesh::~CartesianOneDimMesh() {
 
 Region* CartesianOneDimMesh::getRegion(uint32_t n) {
     return &regions[n] ;
+}
+
+Region* CartesianOneDimMesh::getRegion(std::string s) {
+    uint32_t n ;
+    stringstream ss(s) ;
+    ss>>n ;
+    if (n>=regions.size()) return 0 ;
+    else return &regions[n] ;
 }
 
 uint32_t CartesianOneDimMesh::size()  {
