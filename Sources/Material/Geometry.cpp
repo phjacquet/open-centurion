@@ -10,7 +10,7 @@
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/Region.h"
-
+#include "Sections/DefaultTotalCrossSection.h"
 using namespace std;
 
 Geometry::Geometry(Mesh * l_spatialMesh, Library * l_library) {
@@ -32,11 +32,17 @@ Geometry Geometry::operator=(const Geometry& orig) {
 }
 
 void Geometry::fill(const vector<string> & regionsName, vector< pair< string,double > > medium) {
-    for (uint32_t region_id = 0 ; region_id < regionsName.size() ; region_id++) {
-        //problemMacroXS.getCrossSection(ProblemCrossSections.TOTAL) ;
-    }
+    buildXS(regionsName) ;
+    pbMacXS.getXS(ProblemCrossSections::TOTAL) ;
+//    for (uint32_t region_id = 0 ; region_id < regionsName.size() ; region_id++) {
+//        pbMacXS.getXS(ProblemCrossSections.TOTAL) ;
+//    }
 }
 
 ProblemCrossSections * Geometry::getXS() {
-    return &problemMacroXS;
+    return &pbMacXS;
+}
+
+void Geometry::buildXS(const std::vector<std::string> & regionsName) {
+    pbMacXS.newTotalXS( new DefaultTotalCrossSection(energyMesh,spatialMesh) ) ;
 }

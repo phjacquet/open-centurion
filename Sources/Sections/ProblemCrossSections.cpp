@@ -18,10 +18,17 @@ ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig) {
 }
 
 ProblemCrossSections::~ProblemCrossSections() {
+    for (map<E_XS, CrossSection *>::iterator it = xsMap.begin(); it!=xsMap.end() ; it++) {
+        delete it->second ;
+    } 
 }
 
-CrossSection * ProblemCrossSections::getCrossSection(E_XS xs) {
-    return & (xsMap.find(xs)->second) ;
+void ProblemCrossSections::newTotalXS(CrossSection * totalXS) {
+    xsMap[TOTAL] = totalXS ;
+}
+
+CrossSection * ProblemCrossSections::getXS(E_XS xs) {
+    return  (xsMap.find(xs)->second) ;
 }
     
 

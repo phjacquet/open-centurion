@@ -46,5 +46,7 @@ private:
     bool lock ;
 };
 
+typedef  std::pair< Mesh*, DoubleMeshField::OptionMeshField> pair_MeshOption ;
+
 #endif	/* DOUBLEMESHFIELD_H */
 
