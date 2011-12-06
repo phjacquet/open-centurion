@@ -228,7 +228,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o ${OBJECTFI
 ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o: Tests/DoubleMeshFieldSimpleTest.cpp 
 	${MKDIR} -p ${TESTDIR}/Tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Werror -I. -I. -I. -I. -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o Tests/DoubleMeshFieldSimpleTest.cpp
+	$(COMPILE.cc) -g -Werror -I. -I. -I. -I. -I. -ISources -I. -ISources/Mesh -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Tests/DoubleMeshFieldSimpleTest.o Tests/DoubleMeshFieldSimpleTest.cpp
 
 
 ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion_nomain.o: ${OBJECTDIR}/Sources/Mesh/CartesianOneDimRegion.o Sources/Mesh/CartesianOneDimRegion.cpp 

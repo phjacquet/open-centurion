@@ -15,7 +15,7 @@
 using namespace std;
 
 
-DoubleMeshField::DoubleMeshField(vector< pair< Mesh*, OptionMeshField> >& l_meshes) {
+DoubleMeshField::DoubleMeshField(vector< pair_MeshOption >& l_meshes) {
     lock = true ;
     for (uint32_t i = 0; i< l_meshes.size() ; i++) {
         meshes.push_back(l_meshes[i].first) ;

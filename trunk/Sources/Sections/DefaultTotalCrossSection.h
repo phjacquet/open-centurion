@@ -7,15 +7,21 @@
 
 #ifndef DEFAULTTOTALCROSSSECTION_H
 #define	DEFAULTTOTALCROSSSECTION_H
+
 #include "CrossSection.h"
+
+class Mesh ;
+class EnergyMesh ;
+class DoubleMeshField;
 
 class DefaultTotalCrossSection : public CrossSection {
 public:
-    DefaultTotalCrossSection();
+    DefaultTotalCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh);
     DefaultTotalCrossSection(const DefaultTotalCrossSection& orig);
     virtual ~DefaultTotalCrossSection();
 private:
 
+    DoubleMeshField * data ;
 };
 
 #endif	/* DEFAULTCROSSSECTION_H */

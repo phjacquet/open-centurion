@@ -11,7 +11,7 @@ using namespace std;
 Library::Library(const string& fileName) {
     double groupBoundaries[] = {18.0E6,1.0E-11};
     energyMesh=new EnergyMesh(groupBoundaries, 2);
-    cout<<energyMesh->toString()<<endl;
+    
 }
 
 Library::~Library() {

@@ -25,11 +25,13 @@ public:
 private:
     Geometry(const Geometry& orig);
     Geometry operator=(const Geometry& orig);
-
+    void buildXS(const std::vector<std::string> & regionsName);
+    void calculateXSMacro(const std::vector<std::string> & regionsName, std::vector< std::pair< std::string,double > > medium);
+    
     Mesh *spatialMesh  ;
     Library *library  ;
     EnergyMesh * energyMesh ;
-    ProblemCrossSections problemMacroXS ;
+    ProblemCrossSections pbMacXS ;
 };
 
 #endif	/* GEOMETRY_H */

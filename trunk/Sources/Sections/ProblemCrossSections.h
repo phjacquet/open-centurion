@@ -14,6 +14,7 @@ class ProblemCrossSections {
 public:
     ProblemCrossSections();
     virtual ~ProblemCrossSections();
+    void newTotalXS(CrossSection * totalXS) ;
     
     enum E_XS {
         TOTAL,
@@ -22,13 +23,13 @@ public:
         FISSION_DISTRIBUTION
     };
     
-    CrossSection * getCrossSection(E_XS xs) ;
+    CrossSection * getXS(E_XS xs) ;
     
 private:
     ProblemCrossSections(const ProblemCrossSections& orig);
     ProblemCrossSections operator=(const ProblemCrossSections& orig);
     
-    std::map<E_XS, CrossSection> xsMap;
+    std::map<E_XS, CrossSection *> xsMap;
 };
 
 #endif	/* PROBLEMCROSSSECTIONS_H */
