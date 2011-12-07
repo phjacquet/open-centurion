@@ -6,6 +6,7 @@
  */
 
 #include <vector>
+#include <stdexcept>
 #include "DefaultTotalCrossSection.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/Mesh.h"
@@ -22,9 +23,13 @@ DefaultTotalCrossSection::DefaultTotalCrossSection(EnergyMesh * energyMesh, Mesh
 }
 
 DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) {
+    throw runtime_error("DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) : Unimplemented method") ;
 }
 
 DefaultTotalCrossSection::~DefaultTotalCrossSection() {
     delete data ;
 }
 
+void DefaultTotalCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
+    data->buildFamily(1,regionsName,name) ;
+}

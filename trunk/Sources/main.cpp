@@ -35,12 +35,12 @@ int main(int argc, char** argv) {
         regionsName.push_back("4");
         nucleiConcentration.push_back( pair<string,double>("U235", 0.1) ) ;
         nucleiConcentration.push_back( pair<string,double>("U238", 1.0) ) ;
-        geometry.fill(regionsName,nucleiConcentration);
+        geometry.fill("combustible",regionsName,nucleiConcentration);
         
         regionsName.clear(); nucleiConcentration.clear() ;
         regionsName.push_back("5");
         nucleiConcentration.push_back( pair<string,double>("Fe56", 1.0) ) ;
-        geometry.fill(regionsName,nucleiConcentration);
+        geometry.fill("gaine",regionsName,nucleiConcentration);
         
         regionsName.clear(); nucleiConcentration.clear() ;
         regionsName.push_back("6");
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
         regionsName.push_back("8");
         regionsName.push_back("9");
         nucleiConcentration.push_back( pair<string,double>("H20", 1.0) ) ;
-        geometry.fill(regionsName,nucleiConcentration);
+        geometry.fill("modérateur",regionsName,nucleiConcentration);
         
         cout << spatialMesh->toString() << endl;
         cout << lib->getEnergyMesh()->toString()<<endl;

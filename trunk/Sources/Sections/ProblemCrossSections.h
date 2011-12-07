@@ -15,11 +15,13 @@ public:
     ProblemCrossSections();
     virtual ~ProblemCrossSections();
     void newTotalXS(CrossSection * totalXS) ;
-    
+    void newScatXS( CrossSection * scatXS ) ;
+    void newNuFissXS( CrossSection * nuFissionXS ) ;
+    void newFissDistXS( CrossSection * fissionDistribution ) ;
     enum E_XS {
         TOTAL,
         SCATTERING,
-        FISSION,
+        NUFISSION,
         FISSION_DISTRIBUTION
     };
     

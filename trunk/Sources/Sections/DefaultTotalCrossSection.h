@@ -19,6 +19,8 @@ public:
     DefaultTotalCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh);
     DefaultTotalCrossSection(const DefaultTotalCrossSection& orig);
     virtual ~DefaultTotalCrossSection();
+    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
+    
 private:
 
     DoubleMeshField * data ;
