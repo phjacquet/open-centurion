@@ -9,14 +9,18 @@
 #define	LIBRARY_H
 #include <string>
 #include <map>
+#include <vector>
 #include "Mesh/EnergyMesh.h"
 #include "Sections/ProblemCrossSections.h"
+
+class DefaultTotalCrossSection ;
 
 class Library {
 public:
     Library(const std::string& fileName);
     virtual ~Library();
     EnergyMesh * getEnergyMesh() ;
+    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::pair< std::string,double > > medium) ;
 private:
     Library(const Library& orig);
     Library& operator=(const Library& );

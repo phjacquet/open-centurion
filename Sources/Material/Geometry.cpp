@@ -11,12 +11,17 @@
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/Region.h"
 #include "Sections/DefaultTotalCrossSection.h"
+#include "Sections/DefaultScatteringCrossSection.h"
+#include "Sections/NuFissionCrossSection.h"
+#include "Sections/FissionDistribution.h"
+
 using namespace std;
 
 Geometry::Geometry(Mesh * l_spatialMesh, Library * l_library) {
     spatialMesh = l_spatialMesh ;
     library = l_library ;
     energyMesh = library->getEnergyMesh();
+    buildXS();
 }
     
 Geometry::~Geometry() {
@@ -31,18 +36,19 @@ Geometry Geometry::operator=(const Geometry& orig) {
     throw runtime_error("Geometry::Geometry operator=(const Geometry& orig)") ;
 }
 
-void Geometry::fill(const vector<string> & regionsName, vector< pair< string,double > > medium) {
-    buildXS(regionsName) ;
-    pbMacXS.getXS(ProblemCrossSections::TOTAL) ;
-//    for (uint32_t region_id = 0 ; region_id < regionsName.size() ; region_id++) {
-//        pbMacXS.getXS(ProblemCrossSections.TOTAL) ;
-//    }
+void Geometry::fill(const string & name, const vector<string> & regionsName, vector< pair< string,double > > medium) {
+    pbMacXS.getXS(ProblemCrossSections::TOTAL)->collapseSpatialRegions(name, regionsName) ;
+    pbMacXS.getXS(ProblemCrossSections::TOTAL)->calculateMacro( name, library->setOfTotalMicroXS(medium), medium ) ;
+
 }
 
 ProblemCrossSections * Geometry::getXS() {
     return &pbMacXS;
 }
 
-void Geometry::buildXS(const std::vector<std::string> & regionsName) {
+void Geometry::buildXS() {
     pbMacXS.newTotalXS( new DefaultTotalCrossSection(energyMesh,spatialMesh) ) ;
+    pbMacXS.newScatXS( new DefaultScatteringCrossSection(energyMesh,spatialMesh) ) ;
+    pbMacXS.newNuFissXS( new NuFissionCrossSection(energyMesh,spatialMesh) ) ;
+    pbMacXS.newFissDistXS( new FissionDistribution(energyMesh,spatialMesh) ) ;
 }
