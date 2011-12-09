@@ -16,20 +16,28 @@
 using namespace std;
 
 DefaultTotalCrossSection::DefaultTotalCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh) {
-    vector< pair_MeshOption > meshes ;
-    meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
-    meshes.push_back( pair_MeshOption(spatialMesh,DoubleMeshField::LAZY) ) ;
-    data = new DoubleMeshField(meshes) ;
+    vector< pair_MeshOption > meshes;
+    meshes.push_back(pair_MeshOption(energyMesh, DoubleMeshField::FULL));
+    meshes.push_back(pair_MeshOption(spatialMesh, DoubleMeshField::LAZY));
+    data = new DoubleMeshField(meshes);
 }
 
 DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) {
-    throw runtime_error("DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) : Unimplemented method") ;
+    throw runtime_error("DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) : Unimplemented method");
 }
 
 DefaultTotalCrossSection::~DefaultTotalCrossSection() {
-    delete data ;
+    delete data;
 }
 
-void DefaultTotalCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
-    data->buildFamily(1,regionsName,name) ;
+void DefaultTotalCrossSection::collapseSpatialRegions(const string & name, 
+                                                      const std::vector< std::string > & regionsName) {
+    data->buildFamily(1, regionsName, name);
+}
+
+void DefaultTotalCrossSection::calculateMacro(const string & mediumName,
+                                              vector<CrossSection*> microXS,
+                                              const vector< double > & concentrations) {
+    FieldIterator it = data->getIterator() ;
+    data->setDouble( it(":;"+mediumName) , 0 );
 }

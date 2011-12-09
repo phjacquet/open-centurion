@@ -18,6 +18,3 @@ CrossSection::CrossSection(const CrossSection& orig) {
 CrossSection::~CrossSection() {
 }
 
-void CrossSection::calculateMacro(const string & mediumName, vector<CrossSection*> microXS, const vector< pair< string,double > > & medium ) {
-    
-}

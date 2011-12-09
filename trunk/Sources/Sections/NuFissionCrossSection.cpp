@@ -30,6 +30,14 @@ NuFissionCrossSection::~NuFissionCrossSection() {
     delete data ;
 }
 
-void NuFissionCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
+void NuFissionCrossSection::collapseSpatialRegions(const string & name, 
+                                                   const std::vector< std::string > & regionsName) {
     data->buildFamily(2,regionsName,name) ;
+}
+
+void NuFissionCrossSection::calculateMacro(const string & mediumName,
+                                              vector<CrossSection*> microXS,
+                                              const vector< double > & concentrations) {
+    FieldIterator it = data->getIterator() ;
+    data->setDouble( it(":;"+mediumName) , 0 );
 }

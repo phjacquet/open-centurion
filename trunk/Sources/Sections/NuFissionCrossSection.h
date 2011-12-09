@@ -9,20 +9,21 @@
 #define	NUFISSIONCROSSSECTION_H
 #include "CrossSection.h"
 
-class Mesh ;
-class EnergyMesh ;
+class Mesh;
+class EnergyMesh;
 class DoubleMeshField;
 
-class NuFissionCrossSection  : public CrossSection {
+class NuFissionCrossSection : public CrossSection {
 public:
     NuFissionCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh);
     NuFissionCrossSection(const NuFissionCrossSection& orig);
     virtual ~NuFissionCrossSection();
-    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
+    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
+    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
 private:
 
-    DoubleMeshField * data ;
-    
+    DoubleMeshField * data;
+
 };
 
 #endif	/* NUFISSIONCROSSSECTION_H */

@@ -20,7 +20,7 @@ public:
     Library(const std::string& fileName);
     virtual ~Library();
     EnergyMesh * getEnergyMesh() ;
-    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::pair< std::string,double > > medium) ;
+    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::string > nucleiList) ;
 private:
     Library(const Library& orig);
     Library& operator=(const Library& );

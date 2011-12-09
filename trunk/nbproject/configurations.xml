@@ -109,8 +109,6 @@
           <incDir>
             <pElem>Sources</pElem>
             <pElem>.</pElem>
-            <pElem>Sources/Mesh</pElem>
-            <pElem>.</pElem>
           </incDir>
           <warningLevel>3</warningLevel>
         </ccTool>
@@ -125,10 +123,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -178,10 +178,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

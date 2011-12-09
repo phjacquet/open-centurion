@@ -26,15 +26,15 @@ EnergyMesh * Library::getEnergyMesh() {
     return energyMesh ;
 }
 
-vector<CrossSection *> Library::setOfTotalMicroXS(vector< pair< string,double > > medium) {
+vector<CrossSection *> Library::setOfTotalMicroXS(vector< string > nucleiList) {
     vector<CrossSection *> micros;
-    for (uint32_t n = 0; n< medium.size(); n++) {
-        if ( problemMicroXS.find(medium[n].first) != problemMicroXS.end()) {
-            micros.push_back( problemMicroXS.find(medium[n].first)->second.getXS(ProblemCrossSections::TOTAL) );
+    for (unsigned n = 0; n< nucleiList.size(); n++) {
+        if ( problemMicroXS.find(nucleiList[n]) != problemMicroXS.end()) {
+            micros.push_back( problemMicroXS.find(nucleiList[n])->second.getXS(ProblemCrossSections::TOTAL) );
         }
         else  {
             stringstream err;
-            err<<"Library::setOfTotalMicroXS(vector< pair< string,double > > medium) : it contains unknwon nucleus name :"<<medium[n].first ;
+            err<<"Library::setOfTotalMicroXS(vector< pair< string,double > > medium) : it contains unknwon nucleus name :"<<nucleiList[n] ;
             throw runtime_error(err.str().c_str()) ;
         }
     }

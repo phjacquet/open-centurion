@@ -17,8 +17,7 @@ public:
     CrossSection(const CrossSection& orig);
     virtual ~CrossSection();
     virtual void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName) = 0 ;
-    
-    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< std::pair< std::string,double > > & medium ) ;
+    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) = 0 ;
     
 
 private:

@@ -15,12 +15,12 @@
 
 class CartesianOneDimMesh : public Mesh {
 public:
-    CartesianOneDimMesh(const double* nodes, uint32_t size);
+    CartesianOneDimMesh(const double* nodes, unsigned size);
     CartesianOneDimMesh(const CartesianOneDimMesh& orig);
     virtual ~CartesianOneDimMesh();
-    Region* getRegion(uint32_t n) ;
+    Region* getRegion(unsigned n) ;
     Region* getRegion(std::string s)  ;
-    uint32_t size() ;
+    unsigned size() ;
     
     std::string toString() ;
 private:

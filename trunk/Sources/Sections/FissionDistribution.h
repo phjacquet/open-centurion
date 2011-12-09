@@ -9,20 +9,21 @@
 #define	FISSIONDISTRIBUTION_H
 #include "CrossSection.h"
 
-class Mesh ;
-class EnergyMesh ;
+class Mesh;
+class EnergyMesh;
 class DoubleMeshField;
 
-class FissionDistribution  : public CrossSection {
+class FissionDistribution : public CrossSection {
 public:
     FissionDistribution(EnergyMesh * energyMesh, Mesh * spatialMesh);
     FissionDistribution(const FissionDistribution& orig);
     virtual ~FissionDistribution();
-    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
+    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
+    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
 private:
 
-    DoubleMeshField * data ;
-    
+    DoubleMeshField * data;
+
 };
 
 #endif	/* FISSIONDISTRIBUTION_H */

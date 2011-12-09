@@ -20,6 +20,7 @@ public:
     DefaultTotalCrossSection(const DefaultTotalCrossSection& orig);
     virtual ~DefaultTotalCrossSection();
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
+    void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) ; 
     
 private:
 
