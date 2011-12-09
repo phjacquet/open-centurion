@@ -23,9 +23,10 @@ public:
     DoubleMeshField(std::vector< std::pair< Mesh*, OptionMeshField> >& l_meshes);
     DoubleMeshField(const DoubleMeshField& orig);
     virtual ~DoubleMeshField();
-    uint32_t numberOfMeshes() ;
+    unsigned numberOfMeshes() ;
+    Mesh * getMesh(unsigned meshIndex) ;
     FieldIterator iterator() ;
-    void buildFamily(uint32_t meshIndex, std::vector<std::string> regionsName, std::string familyName) ;
+    void buildFamily(unsigned meshIndex, std::vector<std::string> regionsName, std::string familyName) ;
     void buildData() ;
     void clearFamilies() ;
     void setDouble(FieldIterator & it, double d);
@@ -38,9 +39,12 @@ public:
     
 private:
     void buildFullMeshesMapping() ;
+    unsigned getDataIndex(std::vector<std::string> & coord) ;
+    void getDataIndexes(FieldIterator & it, std::vector<unsigned> & indexes) ;
+    
     std::vector<Mesh *> meshes ;
     std::vector<OptionMeshField> options ;
-    std::vector<uint32_t> sizes ;
+    std::vector<unsigned> sizes ;
     std::vector< std::map<std::string,int> > mappings ;
     std::vector<double> data ;
     bool lock ;

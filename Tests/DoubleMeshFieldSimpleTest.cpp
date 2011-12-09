@@ -106,16 +106,19 @@ void ioTest() {
 
         FieldIterator fit = dmf.getIterator();
 
+        fit("0,1,2;0") ;
+        cout<<fit.toString()<<endl ;
+        
         cout << "subtest 1" << endl;
         dmf.buildData() ;
         cout << "passed" << endl;
         cout << "subtest 2" << endl;
         double expectedResult1[2][4]={ {0,0,0,0},{0,0,0,0} } ;
         
-        for (uint32_t i=0; i < 2; i++)
-            for (uint32_t j=0; j < 4; j++) {
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
                 stringstream ss ;
-                ss<<i<<";"<<j ;
+                ss<<i<<";"<<j ;cout<<ss.str()<<" - >"<<fit(ss.str()).toString()<<endl ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult1[i][j])
                     throw runtime_error("Initialization Exception") ;
             }
@@ -123,8 +126,8 @@ void ioTest() {
         cout << "subtest 3" << endl;
         double expectedResult2[2][4]={ {1.,1.,0,0},{0,0,0,0} } ;
         dmf.setDouble(fit("0;0"),1.) ;
-        for (uint32_t i=0; i < 2; i++)
-            for (uint32_t j=0; j < 4; j++) {
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult2[i][j])
@@ -134,8 +137,8 @@ void ioTest() {
         cout << "subtest 4" << endl;
         double expectedResult3[2][4]={ {1.,1.,0,0},{5.,5.,0,0} } ;
         dmf.setDouble(fit("1;A"),5.) ;
-        for (uint32_t i=0; i < 2; i++)
-            for (uint32_t j=0; j < 4; j++) {
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult3[i][j])
@@ -146,8 +149,8 @@ void ioTest() {
         double expectedResult4[2][4]={ {3.,3.,2,2},{5.,5.,0,0} } ;
         dmf.setDouble(fit("0;B"),2.) ;
         dmf.setDouble(fit("0;1"),3.) ;
-        for (uint32_t i=0; i < 2; i++)
-            for (uint32_t j=0; j < 4; j++) {
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
                 if (dmf.getDouble(fit(ss.str())) != expectedResult4[i][j])
@@ -155,8 +158,21 @@ void ioTest() {
             }
         cout << "passed" << endl;
         
-        cout << "subtest 6" << endl;
-        double expectedResult5[2][4]={ {0,0,0,0},{0,0,0,0} } ;
+        cout << "subtest 6a" << endl;
+        double expectedResult5a[2][4]={ {0,0,0,0}, {0,0,0,0} } ;
+        dmf.setDouble(fit(":;:"),0.) ;
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
+                stringstream ss ;
+                ss<<i<<";"<<j ;
+                cout<<ss.str()<<": "<<dmf.getDouble(fit(ss.str())) << endl;
+                if (dmf.getDouble(fit(ss.str())) != expectedResult5a[i][j])
+                    throw runtime_error("double set value Exception") ;
+            }
+        cout << "passed" << endl;
+        
+        cout << "subtest 7" << endl;
+        double expectedResult6[2][4]={ {0,0,0,0},{1,1,1,1} } ;
         dmf.clearFamilies() ;
         reg.clear() ;
         reg.push_back("0") ;
@@ -165,11 +181,12 @@ void ioTest() {
         reg.push_back("3") ;
         dmf.buildFamily(1, reg, "ALL") ;
         dmf.buildData() ;
-        for (uint32_t i=0; i < 2; i++)
-            for (uint32_t j=0; j < 4; j++) {
+        dmf.setDouble(fit("1;ALL"),1.) ;
+        for (unsigned i=0; i < 2; i++)
+            for (unsigned j=0; j < 4; j++) {
                 stringstream ss ;
                 ss<<i<<";"<<j ;
-                if (dmf.getDouble(fit(ss.str())) != expectedResult5[i][j])
+                if (dmf.getDouble(fit(ss.str())) != expectedResult6[i][j])
                     throw runtime_error("clearFamilies Exception") ;
             }
         cout << "passed" << endl;
@@ -184,20 +201,23 @@ void ioTest() {
 }
 
 int main(int argc, char** argv) {
-    std::cout << "%SUITE_STARTING% DoubleMeshFieldTest" << std::endl;
-    std::cout << "%SUITE_STARTED%" << std::endl;
+    try {
+        std::cout << "%SUITE_STARTING% DoubleMeshFieldTest" << std::endl;
+        std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << "%TEST_STARTED% constructorTest (DoubleMeshFieldTest)" << std::endl;
-    constructorTest();
-    std::cout << "%TEST_FINISHED% time=0 constructorTest (DoubleMeshFieldTest)" << std::endl;
+        std::cout << "%TEST_STARTED% constructorTest (DoubleMeshFieldTest)" << std::endl;
+        constructorTest();
+        std::cout << "%TEST_FINISHED% time=0 constructorTest (DoubleMeshFieldTest)" << std::endl;
 
-    std::cout << "%TEST_STARTED% ioTest (DoubleMeshFieldTest)" << std::endl;
-    ioTest();
-    std::cout << "%TEST_FINISHED% time=0 ioTest (DoubleMeshFieldTest)" << std::endl;
+        std::cout << "%TEST_STARTED% ioTest (DoubleMeshFieldTest)" << std::endl;
+        ioTest();
+        std::cout << "%TEST_FINISHED% time=0 ioTest (DoubleMeshFieldTest)" << std::endl;
 
-    
-    std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
+        std::cout << "%SUITE_FINISHED% time=0" << std::endl;
+    }    catch (const exception & e) {
+        cout << e.what() << endl;
+    }
     return (EXIT_SUCCESS);
 }
 

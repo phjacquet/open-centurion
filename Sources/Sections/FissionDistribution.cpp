@@ -33,3 +33,11 @@ FissionDistribution::~FissionDistribution() {
 void FissionDistribution::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
     data->buildFamily(2,regionsName,name) ;
 }
+
+
+void FissionDistribution::calculateMacro(const string & mediumName,
+                                              vector<CrossSection*> microXS,
+                                              const vector< double > & concentrations) {
+    FieldIterator it = data->getIterator() ;
+    data->setDouble( it(":;"+mediumName) , 0 );
+}

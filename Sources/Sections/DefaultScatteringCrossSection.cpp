@@ -33,3 +33,10 @@ DefaultScatteringCrossSection::~DefaultScatteringCrossSection() {
 void DefaultScatteringCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
     data->buildFamily(2,regionsName,name) ;
 }
+
+void DefaultScatteringCrossSection::calculateMacro(const string & mediumName,
+                                              vector<CrossSection*> microXS,
+                                              const vector< double > & concentrations) {
+    FieldIterator it = data->getIterator() ;
+    data->setDouble( it(":;"+mediumName) , 0 );
+}

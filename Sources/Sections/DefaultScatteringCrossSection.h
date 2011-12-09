@@ -9,8 +9,8 @@
 #define	DEFAULTSCATTERINGCROSSSECTION_H
 #include "CrossSection.h"
 
-class Mesh ;
-class EnergyMesh ;
+class Mesh;
+class EnergyMesh;
 class DoubleMeshField;
 
 class DefaultScatteringCrossSection : public CrossSection {
@@ -18,10 +18,11 @@ public:
     DefaultScatteringCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh);
     DefaultScatteringCrossSection(const DefaultScatteringCrossSection& orig);
     virtual ~DefaultScatteringCrossSection();
-    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
+    void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
+    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
 private:
-    
-    DoubleMeshField * data ;
+
+    DoubleMeshField * data;
 };
 
 #endif	/* DEFAULTSCATTERINGCROSSSECTION_H */

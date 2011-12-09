@@ -11,21 +11,29 @@
 #include <vector>
 #include "Mesh/Mesh.h"
 
-class DoubleMeshField ;
+class DoubleMeshField;
 
 class FieldIterator {
 public:
     FieldIterator(const FieldIterator& orig);
     virtual ~FieldIterator();
-    FieldIterator & operator()(  const std::string & expression  );
+    FieldIterator & operator()(const std::string & expression);
+    bool isWideIterator();
+    void computePath();
+    std::vector< std::vector< std::string> > &  getPath() ;
+    std::string toString();
+    
 private:
     FieldIterator(DoubleMeshField * l_dmf);
-    std::string& get(uint32_t meshIndex, uint32_t regionIndex);
+    unsigned size(unsigned meshIndex);
+    std::string& get(unsigned meshIndex, unsigned regionIndex);
 
-    DoubleMeshField * dmf ;
-    std::vector< std::vector< std::string>  > locData ;
+    DoubleMeshField * dmf;
+    std::vector< std::vector< std::string> > locData;
+    std::vector< std::vector< std::string> > path;
+    bool wideIterator;
 
-    friend class DoubleMeshField ;
+    friend class DoubleMeshField;
 };
 
 #endif	/* FIELDITERATOR_H */

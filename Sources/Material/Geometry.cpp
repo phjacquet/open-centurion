@@ -36,10 +36,17 @@ Geometry Geometry::operator=(const Geometry& orig) {
     throw runtime_error("Geometry::Geometry operator=(const Geometry& orig)") ;
 }
 
-void Geometry::fill(const string & name, const vector<string> & regionsName, vector< pair< string,double > > medium) {
+void Geometry::fill(const string & name, 
+                    const vector<string> & regionsName, 
+                    const vector< pair< string,double > > & medium) {
+    vector<string> nucleiList ;
+    vector<double> nucleiConcentrations ;
+    for (unsigned n = 0; n < medium.size(); n++ ) {
+        nucleiList.push_back(medium[n].first) ;
+        nucleiConcentrations.push_back(medium[n].second) ;
+    }
     pbMacXS.getXS(ProblemCrossSections::TOTAL)->collapseSpatialRegions(name, regionsName) ;
-    pbMacXS.getXS(ProblemCrossSections::TOTAL)->calculateMacro( name, library->setOfTotalMicroXS(medium), medium ) ;
-
+    pbMacXS.getXS(ProblemCrossSections::TOTAL)->calculateMacro( name, library->setOfTotalMicroXS(nucleiList), nucleiConcentrations ) ;
 }
 
 ProblemCrossSections * Geometry::getXS() {

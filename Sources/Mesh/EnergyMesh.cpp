@@ -14,12 +14,12 @@
 
 using namespace std ;
 
-EnergyMesh::EnergyMesh(const double* groupBoundaries, uint32_t size) {
+EnergyMesh::EnergyMesh(const double* groupBoundaries, unsigned size) {
     if (size<2)
         throw InputConsistency(3,LOG_INP_CONS_E("Incorrect size of nodes array")) ;
     energyGroups.clear() ;
     energyGroups.reserve(size-1) ;
-    for (uint32_t i=0; i<size-1; i++) {
+    for (unsigned i=0; i<size-1; i++) {
         double boundaryLeft = groupBoundaries[i] ;
         double boundaryRight = groupBoundaries[i+1] ;
         if (boundaryLeft <= boundaryRight) {
@@ -39,26 +39,26 @@ EnergyMesh::EnergyMesh(const EnergyMesh& orig) {
 EnergyMesh::~EnergyMesh() {
 }
 
-Region* EnergyMesh::getRegion(uint32_t n) {
+Region* EnergyMesh::getRegion(unsigned n) {
     return &energyGroups[n] ;
 }
 
 Region* EnergyMesh::getRegion(std::string s) {
-    uint32_t n ;
+    unsigned n ;
     stringstream ss(s) ;
     ss>>n ;
     if (n>=energyGroups.size()) return 0 ;
     else return &energyGroups[n] ;
 }
 
-uint32_t EnergyMesh::size()  {
+unsigned EnergyMesh::size()  {
     return energyGroups.size();
 }
 
 string EnergyMesh::toString() {
     stringstream ss ;
     ss<<"EnergyMesh\n" ;
-    for (uint32_t i=0; i < energyGroups.size()-1; i++) {
+    for (unsigned i=0; i < energyGroups.size()-1; i++) {
         ss<<energyGroups[i].toString()<<";";
     }
     ss<<energyGroups.back().toString() ;
