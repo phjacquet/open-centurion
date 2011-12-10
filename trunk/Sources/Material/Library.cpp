@@ -38,5 +38,6 @@ vector<CrossSection *> Library::setOfTotalMicroXS(vector< string > nucleiList) {
             throw runtime_error(err.str().c_str()) ;
         }
     }
+	return micros ;
 }
    
