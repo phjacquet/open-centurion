@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   ProblemCrossSections.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 12 juin 2011, 23:06
  */
 
@@ -14,7 +14,10 @@ ProblemCrossSections::ProblemCrossSections() {
 }
 
 ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig) {
-    throw runtime_error("ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig)");
+    throw runtime_error("ProblemCrossSections::ProblemCrossSections(const ProblemCrossSections& orig) : unimplemented method");
+}
+ProblemCrossSections ProblemCrossSections::operator=(const ProblemCrossSections& orig){
+    throw runtime_error("ProblemCrossSections::operator=(const ProblemCrossSections& orig) : unimplemented method");
 }
 
 ProblemCrossSections::~ProblemCrossSections() {

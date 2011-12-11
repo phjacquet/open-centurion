@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   ProblemCrossSections.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -13,6 +13,9 @@
 class ProblemCrossSections {
 public:
     ProblemCrossSections();
+    ProblemCrossSections(const ProblemCrossSections& orig);
+    ProblemCrossSections operator=(const ProblemCrossSections& orig);
+
     virtual ~ProblemCrossSections();
     void newTotalXS(CrossSection * totalXS) ;
     void newScatXS( CrossSection * scatXS ) ;
@@ -24,13 +27,11 @@ public:
         NUFISSION,
         FISSION_DISTRIBUTION
     };
-    
+
     CrossSection * getXS(E_XS xs) ;
-    
+
 private:
-    ProblemCrossSections(const ProblemCrossSections& orig);
-    ProblemCrossSections operator=(const ProblemCrossSections& orig);
-    
+
     std::map<E_XS, CrossSection *> xsMap;
 };
 

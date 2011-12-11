@@ -81,14 +81,19 @@ void FieldIterator::computePath() {
     for (unsigned i = 0; i < locData.size(); i++)
         multiplicity.push_back(locData[i].size() * multiplicity.back());
 
-    path.resize(multiplicity.back());
+    unsigned multiplicityBack = multiplicity.back() ;
+    unsigned locDataSize = locData.size() ;
+    path.resize(multiplicityBack,vector<string*>(locDataSize));
 
-    for (unsigned i = 0; i < locData.size(); i++) {
-        unsigned pathIndex = 0;
-        for (unsigned k = 0; k < multiplicity[i]; k++) {
-            for (unsigned j = 0; j < locData[i].size(); j++) {
-                for (unsigned l = 0; l < multiplicity.back() / multiplicity[i + 1]; l++) {
-                    path[pathIndex].push_back(locData[i][j]);
+    unsigned i,k,j,l,pathIndex,multiplicity_i,repet ;
+    for ( i = 0; i < locDataSize; i++) {
+        pathIndex = 0;
+        multiplicity_i = multiplicity[i] ;
+        for ( k = 0; k < multiplicity_i; k++) {
+            for ( j = 0; j < locData[i].size(); j++) {
+                repet = multiplicityBack / multiplicity[i+1] ;
+                for ( l = 0; l < repet; l++) {
+                    path[pathIndex][i]=&locData[i][j];
                     pathIndex++;
                 }
             }
@@ -96,7 +101,7 @@ void FieldIterator::computePath() {
     }
 }
 
-vector< vector< string > > & FieldIterator::getPath() {
+vector< vector< string *> > & FieldIterator::getPath() {
     return path;
 }
 

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   FissionDistribution.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 1 juin 2011, 22:54
  */
 
@@ -34,6 +34,9 @@ void FissionDistribution::collapseSpatialRegions(const string & name, const std:
     data->buildFamily(2,regionsName,name) ;
 }
 
+DoubleMeshField * FissionDistribution::getData() {
+    return data ;
+}
 
 void FissionDistribution::calculateMacro(const string & mediumName,
                                               vector<CrossSection*> microXS,

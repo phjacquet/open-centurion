@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data author = "Philippe Jacquet" >
+	<comment>
+	</comment>
+  <medium 	name = "U235"
+			mesh = "MESH_3G"
+			temperature = "2.94149994E+02">
+    <for_macro_computation>
+      <section type = "TOTAL"
+               unit = "barn"
+               rang = "1"
+               order = "0">
+        1.5E+01  3.5E+01  3.0E+02
+      </section>
+      <section type = "FISSION"
+               unit = "barn"
+               rang = "1"
+               order = "0">
+        1.5E+00  4.0E-01  1.5E+02
+      </section>
+      <section type = "SCATTERING"
+               unit = "barn"
+               rang = "2"
+               order = "0">
+        7.5E+00  0.0E+00  0.0E+00
+		1.0E+01  2.0E+01  0.0E+00
+		0.0E+00  1.0E-01  4.0E+01
+      </section>
+      <section type = "SCATTERING"
+               unit = "barn"
+               rang = "2"
+               order = "1">
+        6.0E+00  0.0E+00  0.0E+00
+	   -5.0E-01  1.0E+00  0.0E+00
+		0.0E+00 -1.0E-02  1.0E+00
+      </section>
+      <spectrum>
+        <nu>
+          4.0E+00  3.0E+00  3.0E+00  
+        </nu>
+        <distribution>
+		9.0E-01  1.0E-01  0.0E+00
+        </distribution>
+      </spectrum>
+    </for_macro_computation>
+	<for_reaction_rate_computation>
+      <section type = "CAPTURE"
+               unit = "barn"
+               rang = "1"
+               order = "0">
+        6.0E+00  5.0E+00  5.0E+01
+      </section>
+    </for_reaction_rate_computation>
+  </medium>
+</data>

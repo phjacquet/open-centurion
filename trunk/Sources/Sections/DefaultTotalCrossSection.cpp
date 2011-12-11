@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   DefaultCrossSection.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 1 juin 2011, 22:17
  */
 
@@ -30,9 +30,13 @@ DefaultTotalCrossSection::~DefaultTotalCrossSection() {
     delete data;
 }
 
-void DefaultTotalCrossSection::collapseSpatialRegions(const string & name, 
+void DefaultTotalCrossSection::collapseSpatialRegions(const string & name,
                                                       const std::vector< std::string > & regionsName) {
     data->buildFamily(1, regionsName, name);
+}
+
+DoubleMeshField * DefaultTotalCrossSection::getData() {
+    return data ;
 }
 
 void DefaultTotalCrossSection::calculateMacro(const string & mediumName,

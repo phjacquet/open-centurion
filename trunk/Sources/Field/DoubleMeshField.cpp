@@ -110,7 +110,7 @@ void DoubleMeshField::buildData() {
     lock = false;
 }
 
-unsigned DoubleMeshField::getDataIndex(vector<string> & coord) {
+unsigned DoubleMeshField::getDataIndex(vector<string*> & coord) {
     if (lock == true)
         throw runtime_error("DoubleMeshField::getDataIndex(vector<string> coord) : DoubleMeshField is locked");
     if (coord.size() != meshes.size()) {
@@ -122,7 +122,7 @@ unsigned DoubleMeshField::getDataIndex(vector<string> & coord) {
     int idx = 0;
     for (unsigned meshIndex = 0; meshIndex < meshes.size(); meshIndex++) {
         idx = idx * sizes[meshIndex];
-        string & s_it = coord[meshIndex];
+        string & s_it = *coord[meshIndex];
         if (mappings[meshIndex].find(s_it) == mappings[meshIndex].end()) {
             stringstream err;
             err << "DoubleMeshField::getDataIndex(vector<string> coord) : coord contains unknwon region id [ mesh=";
@@ -139,7 +139,7 @@ void DoubleMeshField::getDataIndexes(FieldIterator & it, vector<unsigned> & inde
         throw runtime_error("DoubleMeshField::getDataIndexes(FieldIterator & it, vector<int> & indexes) : DoubleMeshField is locked");
 
     indexes.clear();
-    vector< vector< string > > & path = it.getPath();
+    vector< vector< string *> > & path = it.getPath();
     for (unsigned i = 0; i < path.size(); i++) 
         indexes.push_back(getDataIndex(path[i])) ;
     

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   NuFissionCrossSection.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 1 juin 2011, 22:54
  */
 
@@ -30,9 +30,13 @@ NuFissionCrossSection::~NuFissionCrossSection() {
     delete data ;
 }
 
-void NuFissionCrossSection::collapseSpatialRegions(const string & name, 
+void NuFissionCrossSection::collapseSpatialRegions(const string & name,
                                                    const std::vector< std::string > & regionsName) {
     data->buildFamily(2,regionsName,name) ;
+}
+
+DoubleMeshField * NuFissionCrossSection::getData() {
+    return data ;
 }
 
 void NuFissionCrossSection::calculateMacro(const string & mediumName,

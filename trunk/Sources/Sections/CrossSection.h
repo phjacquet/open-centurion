@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   CrossSection.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+class DoubleMeshField ;
+
 class CrossSection {
 public:
     CrossSection();
@@ -18,7 +20,7 @@ public:
     virtual ~CrossSection();
     virtual void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName) = 0 ;
     virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) = 0 ;
-    
+    virtual DoubleMeshField * getData() = 0;
 
 private:
 };

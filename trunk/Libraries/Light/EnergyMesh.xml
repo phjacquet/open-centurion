@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data author = "Philippe Jacquet" >
+	<comment>
+	</comment>
+	<mesh 	name = "MESH_3G"
+			groupsNumber = "3"
+			unit = "eV"	>
+    1.96403300E+07   3.91998789E+04   7.69454193E+01   1.00001071E-05
+	</mesh>
+	<operationalMesh name = "MESH_3G"> FULL </operationalMesh>	
+</data>
