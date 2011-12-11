@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   DefaultScatteringCrossSection.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -19,6 +19,7 @@ public:
     DefaultScatteringCrossSection(const DefaultScatteringCrossSection& orig);
     virtual ~DefaultScatteringCrossSection();
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
+    DoubleMeshField * getData() ;
     virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
 private:
 

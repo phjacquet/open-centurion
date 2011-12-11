@@ -39,7 +39,7 @@ public:
     
 private:
     void buildFullMeshesMapping() ;
-    unsigned getDataIndex(std::vector<std::string> & coord) ;
+    unsigned getDataIndex(std::vector<std::string*> & coord) ;
     void getDataIndexes(FieldIterator & it, std::vector<unsigned> & indexes) ;
     
     std::vector<Mesh *> meshes ;

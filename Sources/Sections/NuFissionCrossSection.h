@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   NuFissionCrossSection.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -19,7 +19,8 @@ public:
     NuFissionCrossSection(const NuFissionCrossSection& orig);
     virtual ~NuFissionCrossSection();
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
-    virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
+    DoubleMeshField * getData() ;
+    void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations) ;
 private:
 
     DoubleMeshField * data;

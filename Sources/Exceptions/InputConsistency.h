@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   InputConsistency.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -11,7 +11,7 @@
 #include <exception>
 #include <string>
 
-#define LOG_INP_CONS_E(l) ( (string(__FILE__)+string(" - ")+string(l)).c_str() )
+#define LOG_INP_CONS_E(l) ( ("in "+string(__FILE__)+string(" :\n")+string(l)).c_str() )
 
 class InputConsistency : public std::exception {
 public:
@@ -24,6 +24,7 @@ private:
     int id; // NumÃƒÂ©ro de l'erreur.
     std::string description; // Description de l'erreur.
     int level; // Niveau de l'erreur.
+	std::string whatMsg ;
 };
 
 #endif	/* INPUTCONSISTENCY_H */

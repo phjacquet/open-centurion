@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data author = "Philippe Jacquet" >
+	<comment> Library for Test Purpose Only </comment>
+	</EnergyMeshFile	path = "EnergyMesh.xml">
+	</CrossSectionFile	particle = "U235"  path = "U235.xml">
+	</CrossSectionFile	particle = "U238"  path = "U238.xml">
+	</CrossSectionFile	particle = "016"   path = "016.xml">
+	</CrossSectionFile	particle = "Fe56"  path = "Fe56.xml">
+	</CrossSectionFile	particle = "H2O"   path = "H2O.xml">
+</data>

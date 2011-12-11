@@ -20,7 +20,7 @@ public:
     FieldIterator & operator()(const std::string & expression);
     bool isWideIterator();
     void computePath();
-    std::vector< std::vector< std::string> > &  getPath() ;
+    std::vector< std::vector< std::string*> > &  getPath() ;
     std::string toString();
     
 private:
@@ -30,7 +30,7 @@ private:
 
     DoubleMeshField * dmf;
     std::vector< std::vector< std::string> > locData;
-    std::vector< std::vector< std::string> > path;
+    std::vector< std::vector< std::string*> > path;
     bool wideIterator;
 
     friend class DoubleMeshField;

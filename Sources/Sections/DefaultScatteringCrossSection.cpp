@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   DefaultScatteringCrossSection.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 1 juin 2011, 22:13
  */
 
@@ -32,6 +32,10 @@ DefaultScatteringCrossSection::~DefaultScatteringCrossSection() {
 
 void DefaultScatteringCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
     data->buildFamily(2,regionsName,name) ;
+}
+
+DoubleMeshField * DefaultScatteringCrossSection::getData() {
+    return data ;
 }
 
 void DefaultScatteringCrossSection::calculateMacro(const string & mediumName,

@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Library.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -7,26 +7,34 @@
 
 #ifndef LIBRARY_H
 #define	LIBRARY_H
+
+#include <fstream>
 #include <string>
 #include <map>
 #include <vector>
-#include "Mesh/EnergyMesh.h"
 #include "Sections/ProblemCrossSections.h"
 
-class DefaultTotalCrossSection ;
+class EnergyMesh ;
+class CartesianOneDimMesh ;
 
 class Library {
 public:
     Library(const std::string& fileName);
     virtual ~Library();
     EnergyMesh * getEnergyMesh() ;
-    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::string > nucleiList) ;
+    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::string > & nucleiList) ;
 private:
     Library(const Library& orig);
     Library& operator=(const Library& );
-    
+    bool loadLibraryRootFile(const std::string& fileName) ;
+    bool loadEnergyMeshLibraryFile(const std::string& fileName) ;
+    bool loadCrossSectionLibraryFile(const std::string& fileName) ;
+
+    std::ofstream logStream ;
+    std::map< std::string, std::string > libraries ;
     EnergyMesh * energyMesh ;
-    std::map<std::string, ProblemCrossSections> problemMicroXS ;
+    CartesianOneDimMesh * spatialOneRegionMesh ;
+    std::map<std::string, ProblemCrossSections*> problemMicroXS ;
 };
 
 #endif	/* LIBRARY_H */
