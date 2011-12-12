@@ -68,9 +68,10 @@ vector<CrossSection *> Library::setOfTotalMicroXS(vector< string > & nucleiList)
         string keyLib = rootLibName+nucleiList[n] ;
         if ( problemMicroXS.find(nucleiList[n]) == problemMicroXS.end()) {
             if (! loadCrossSectionLibraryFile(libraries[keyLib]) ) {
-                throw InputConsistency(10, LOG_INP_CONS_E("Library::setOfTotalMicroXS( vector< string > & nucleiList ) : library loading failed\n"+
-                                       libraries[keyLib]+
-                                       "\nFor detailed log report, check Library.Log"));
+                string err = "Library::setOfTotalMicroXS( vector< string > & nucleiList ) : library loading failed\nWas loading nucleus library "+
+                keyLib+":" + libraries[keyLib]+
+                "\nFor detailed log report, check Library.Log";
+                throw InputConsistency(10, LOG_INP_CONS_E(err));
             }
         }
         if ( problemMicroXS.find(nucleiList[n]) != problemMicroXS.end()) {
@@ -95,10 +96,7 @@ bool Library::loadLibraryRootFile(const std::string& fileName) {
     libraries["Neutron-CrossSection-EnergyMesh-dec3"] = "file.dat" ;
 
     libraries["Neutron-CrossSection-U235"] = root+"U235.xml" ;
-    libraries["Neutron-CrossSection-U238"] = root+"file.dat" ;
-    libraries["Neutron-CrossSection-O16"]  = root+"file.dat" ;
-    libraries["Neutron-CrossSection-Fe56"] = root+"file.dat" ;
-    libraries["Neutron-CrossSection-H20"]  = root+"file.dat" ;
+    libraries["Neutron-CrossSection-O16"]  = root+"O16.xml" ;
 
     discreteMesh = new DiscreteMesh(2) ;
 

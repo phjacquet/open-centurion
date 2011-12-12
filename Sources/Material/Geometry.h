@@ -20,6 +20,7 @@ class Region ;
 class Geometry {
 public:
     Geometry(Mesh * l_spatialMesh, Library * l_library);
+    void fill(const std::string & name, const std::string regionsName[], unsigned size, const std::vector< std::pair< std::string,double > > & medium);
     void fill(const std::string & name, const std::vector<std::string> & regionsName, const std::vector< std::pair< std::string,double > > & medium);
     ProblemCrossSections * getXS();
     virtual ~Geometry();
