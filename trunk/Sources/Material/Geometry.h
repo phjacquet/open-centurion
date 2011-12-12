@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Geometry.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -13,6 +13,7 @@
 #include "Sections/ProblemCrossSections.h"
 class Library ;
 class Mesh ;
+class DiscreteMesh ;
 class EnergyMesh ;
 class Region ;
 
@@ -26,10 +27,11 @@ private:
     Geometry(const Geometry& orig);
     Geometry operator=(const Geometry& orig);
     void buildXS();
-    
+
     Mesh *spatialMesh  ;
-    Library *library  ;
     EnergyMesh * energyMesh ;
+    DiscreteMesh * discreteMesh ;
+    Library *library  ;
     ProblemCrossSections pbMacXS ;
 };
 

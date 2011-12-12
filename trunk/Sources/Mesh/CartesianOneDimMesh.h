@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   CartesianOneDimMesh.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -9,7 +9,7 @@
 #define	CARTESIANONEDIMMESH_H
 
 #include <string>
-#include<vector>
+#include <vector>
 #include "Mesh.h"
 #include "CartesianOneDimRegion.h"
 
@@ -21,7 +21,7 @@ public:
     Region* getRegion(unsigned n) ;
     Region* getRegion(std::string s)  ;
     unsigned size() ;
-    
+
     std::string toString() ;
 private:
     std::vector<CartesianOneDimRegion> regions ;

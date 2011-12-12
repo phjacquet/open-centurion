@@ -17,7 +17,6 @@ using namespace std ;
 FissionDistribution::FissionDistribution(EnergyMesh * energyMesh, Mesh * spatialMesh) {
     vector< pair_MeshOption > meshes ;
     meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
-    meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
     meshes.push_back( pair_MeshOption(spatialMesh,DoubleMeshField::LAZY) ) ;
     data = new DoubleMeshField(meshes) ;
 }
@@ -31,7 +30,7 @@ FissionDistribution::~FissionDistribution() {
 }
 
 void FissionDistribution::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
-    data->buildFamily(2,regionsName,name) ;
+    data->buildFamily(1,regionsName,name) ;
 }
 
 DoubleMeshField * FissionDistribution::getData() {

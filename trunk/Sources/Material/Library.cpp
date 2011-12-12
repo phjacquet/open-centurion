@@ -13,6 +13,7 @@
 #include <boost/foreach.hpp>
 #include "Library.h"
 #include "Mesh/EnergyMesh.h"
+#include "Mesh/DiscreteMesh.h"
 #include "Mesh/CartesianOneDimMesh.h"
 #include "Exceptions/InputConsistency.h"
 #include "Field/DoubleMeshField.h"
@@ -25,18 +26,18 @@ using namespace std;
 
 Library::Library(const string& fileName) {
     logStream.open("Library.log") ;
-
-    if (!loadLibraryRootFile(fileName)) {
+    energyMesh = NULL ;
+    discreteMesh = NULL ;
+    spatialOneRegionMesh = NULL ;
+    if (!loadLibraryRootFile(fileName))
         throw InputConsistency(8, LOG_INP_CONS_E("Library loading failed - step 1\n"+
                                fileName+
                                "\nFor detailed log report, check Library.Log"));
-    }
 
-    if (!loadEnergyMeshLibraryFile(libraries["Neutron-CrossSection-EnergyMesh-base"])) {
+    if (!loadEnergyMeshLibraryFile(libraries["Neutron-CrossSection-EnergyMesh-base"]))
         throw InputConsistency(9, LOG_INP_CONS_E("Library loading failed - step 2\n"+
                                libraries["Neutron-CrossSection-EnergyMesh-base"]+
                                "\nFor detailed log report, check Library.Log"));
-    }
 
     double spatialNodes[] = {0., 1.};
     spatialOneRegionMesh = new CartesianOneDimMesh(spatialNodes, 2);
@@ -44,14 +45,20 @@ Library::Library(const string& fileName) {
 
 Library::~Library() {
     logStream.close() ;
-    for (map< string,ProblemCrossSections* >::iterator it = problemMicroXS.begin();it!=problemMicroXS.end();it++)
+    for (map< string,ProblemCrossSections* >::iterator it = problemMicroXS.begin(); it!=problemMicroXS.end(); it++)
         delete it->second;
-    delete energyMesh ;
-    delete spatialOneRegionMesh ;
+    if (energyMesh != NULL) delete energyMesh ;
+    if (spatialOneRegionMesh != NULL) delete spatialOneRegionMesh ;
+    if (discreteMesh != NULL) delete discreteMesh ;
+
 }
 
 EnergyMesh * Library::getEnergyMesh() {
     return energyMesh ;
+}
+
+DiscreteMesh * Library::getDiscreteMesh() {
+    return discreteMesh ;
 }
 
 vector<CrossSection *> Library::setOfTotalMicroXS(vector< string > & nucleiList) {
@@ -92,6 +99,8 @@ bool Library::loadLibraryRootFile(const std::string& fileName) {
     libraries["Neutron-CrossSection-O16"]  = root+"file.dat" ;
     libraries["Neutron-CrossSection-Fe56"] = root+"file.dat" ;
     libraries["Neutron-CrossSection-H20"]  = root+"file.dat" ;
+
+    discreteMesh = new DiscreteMesh(2) ;
 
     return 1 ;
 }
@@ -144,31 +153,68 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
         ProblemCrossSections * pbXS = new ProblemCrossSections() ;
         problemMicroXS[name] = pbXS ;
         pbXS->newTotalXS( new DefaultTotalCrossSection(energyMesh,spatialOneRegionMesh) ) ;
-        pbXS->newScatXS( new DefaultScatteringCrossSection(energyMesh,spatialOneRegionMesh) ) ;
+        pbXS->newScatXS( new DefaultScatteringCrossSection(energyMesh,discreteMesh,spatialOneRegionMesh) ) ;
         pbXS->newNuFissXS( new NuFissionCrossSection(energyMesh,spatialOneRegionMesh) ) ;
         pbXS->newFissDistXS( new FissionDistribution(energyMesh,spatialOneRegionMesh) ) ;
-        BOOST_FOREACH( boost::property_tree::ptree::value_type & section , v.get_child("for_macro_computation.section") ) {
-            string   type  = section.second.get("<xmlattr>.type","") ;
-            unsigned rang  = section.second.get("<xmlattr>.rang",1);
-            string   unit  = section.second.get("<xmlattr>.unit","barn") ;
-            unsigned order = section.second.get("<xmlattr>.order",0) ;
-            logStream<<"Type  is :"<<type<<endl;
-            logStream<<"Unit  is :"<<unit<<endl;
-            logStream<<"Order is :"<<order<<endl;
+        unsigned scatOrder = 2 ;
+        vector< vector<double> > scatteringXS( scatOrder, vector<double>(energyMesh->size()*energyMesh->size()) ) ;
 
-            stringstream data ( section.second.data() ) ;
-            logStream<<"Data is :"<<data.str()<<endl;
+        BOOST_FOREACH( boost::property_tree::ptree::value_type & section , v.get_child("for_macro_computation") ) {
+            if (section.first == "section") {
+                string   type  = section.second.get("<xmlattr>.type","") ;
+                unsigned rang  = section.second.get("<xmlattr>.rang",1);
+                string   unit  = section.second.get("<xmlattr>.unit","barn") ;
+                unsigned order = section.second.get("<xmlattr>.order",0) ;
+                logStream<<"Type  is :"<<type<<endl;
+                logStream<<"Unit  is :"<<unit<<endl;
+                logStream<<"Order is :"<<order<<endl;
 
-            CrossSection * xs = NULL;
-            if (type == "TOTAL") {
-                 xs = pbXS->getXS(ProblemCrossSections::TOTAL) ;
+                stringstream data ( section.second.data() ) ;
+                logStream<<"Data is :"<<data.str()<<endl;
+
+                CrossSection * xs = NULL;
+                if (type == "TOTAL") xs = pbXS->getXS(ProblemCrossSections::TOTAL) ;
+                if (type == "FISSION") xs = pbXS->getXS(ProblemCrossSections::NUFISSION) ;
+                if (rang==1 && xs!=NULL) {
+                    xs->collapseSpatialRegions("-",vector<string>(1,"0")) ;
+                    xs->getData()->buildData() ;
+                    FieldIterator fit=xs->getData()->getIterator() ;
+                    for (unsigned g=0; g<energyMesh->size() ; g++) {
+                        stringstream sit ;
+                        sit<<g<<";-" ;
+                        double d;
+                        data>>d ;
+                        cout<<sit.str()<<endl;
+                        xs->getData()->setDouble(fit(sit.str()),d) ;
+                    }
+                }
+                if (rang==2) {
+                    for (unsigned g=0; g<energyMesh->size() ; g++) {
+                        for (unsigned gp=0; gp<energyMesh->size() ; gp++) {
+                            double d;
+                            data>>d ;
+                            scatteringXS[order].push_back(d) ;
+                        }
+                    }
+                }
             }
-            if (xs==NULL) {
-                logStream << "Library is incomplete: one or more sections for macro computation are missing"<<endl;
-                return 0 ;
-            }
-            xs->getData()->buildData() ;
         }
+
+        CrossSection * xs = pbXS->getXS(ProblemCrossSections::SCATTERING) ;
+        xs->collapseSpatialRegions("-",vector<string>(1,"0")) ;
+        xs->getData()->buildData() ;
+        FieldIterator fit=xs->getData()->getIterator() ;
+        for (unsigned l=0; l<scatteringXS.size() ; l++) {
+            for (unsigned g=0; g<energyMesh->size() ; g++) {
+                for (unsigned gp=0; gp<energyMesh->size() ; gp++) {
+                    stringstream sit ;
+                    sit<<g<<";"<<gp<<";"<<"D"<<l<<";-" ;
+                    cout<<sit.str()<<endl;
+                    xs->getData()->setDouble(fit(sit.str()),scatteringXS[l][g*energyMesh->size()+gp]) ;
+                }
+            }
+        }
+
         return 1 ;
     } catch (const exception & e) {
         logStream << "Boost exception has been caught in loadCrossSectionLibraryFile() : " <<endl<< e.what() << endl;

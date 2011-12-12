@@ -17,7 +17,6 @@ using namespace std ;
 NuFissionCrossSection::NuFissionCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh) {
     vector< pair_MeshOption > meshes ;
     meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
-    meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
     meshes.push_back( pair_MeshOption(spatialMesh,DoubleMeshField::LAZY) ) ;
     data = new DoubleMeshField(meshes) ;
 }
@@ -32,7 +31,7 @@ NuFissionCrossSection::~NuFissionCrossSection() {
 
 void NuFissionCrossSection::collapseSpatialRegions(const string & name,
                                                    const std::vector< std::string > & regionsName) {
-    data->buildFamily(2,regionsName,name) ;
+    data->buildFamily(1,regionsName,name) ;
 }
 
 DoubleMeshField * NuFissionCrossSection::getData() {

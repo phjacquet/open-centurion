@@ -14,10 +14,11 @@
 
 using namespace std ;
 
-DefaultScatteringCrossSection::DefaultScatteringCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh) {
+DefaultScatteringCrossSection::DefaultScatteringCrossSection(EnergyMesh * energyMesh, Mesh * momentMesh, Mesh * spatialMesh) {
     vector< pair_MeshOption > meshes ;
     meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
     meshes.push_back( pair_MeshOption(energyMesh,DoubleMeshField::FULL) ) ;
+    meshes.push_back( pair_MeshOption(momentMesh,DoubleMeshField::FULL) ) ;
     meshes.push_back( pair_MeshOption(spatialMesh,DoubleMeshField::LAZY) ) ;
     data = new DoubleMeshField(meshes) ;
 }
@@ -31,7 +32,7 @@ DefaultScatteringCrossSection::~DefaultScatteringCrossSection() {
 }
 
 void DefaultScatteringCrossSection::collapseSpatialRegions(const string & name, const std::vector< std::string > & regionsName) {
-    data->buildFamily(2,regionsName,name) ;
+    data->buildFamily(3,regionsName,name) ;
 }
 
 DoubleMeshField * DefaultScatteringCrossSection::getData() {
