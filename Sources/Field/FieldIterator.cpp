@@ -57,6 +57,9 @@ FieldIterator & FieldIterator::operator()(const string & expression) {
         }
         meshIdx++;
     }
+    if (meshIdx != locData.size()) {
+        throw runtime_error("FieldIterator::operator()( const string & expression ) : expression is too short");
+    }
     computePath();
     return *this;
 }

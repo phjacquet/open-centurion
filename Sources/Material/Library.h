@@ -15,6 +15,7 @@
 #include "Sections/ProblemCrossSections.h"
 
 class EnergyMesh ;
+class DiscreteMesh ;
 class CartesianOneDimMesh ;
 
 class Library {
@@ -22,6 +23,7 @@ public:
     Library(const std::string& fileName);
     virtual ~Library();
     EnergyMesh * getEnergyMesh() ;
+    DiscreteMesh * getDiscreteMesh() ;
     std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::string > & nucleiList) ;
 private:
     Library(const Library& orig);
@@ -33,6 +35,7 @@ private:
     std::ofstream logStream ;
     std::map< std::string, std::string > libraries ;
     EnergyMesh * energyMesh ;
+    DiscreteMesh * discreteMesh ;
     CartesianOneDimMesh * spatialOneRegionMesh ;
     std::map<std::string, ProblemCrossSections*> problemMicroXS ;
 };
