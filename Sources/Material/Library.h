@@ -12,7 +12,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "Sections/ProblemCrossSections.h"
+#include "Sections/SetOfXS.h"
 
 class EnergyMesh ;
 class DiscreteMesh ;
@@ -24,7 +24,8 @@ public:
     virtual ~Library();
     EnergyMesh * getEnergyMesh() ;
     DiscreteMesh * getDiscreteMesh() ;
-    std::vector<CrossSection *> setOfTotalMicroXS(std::vector< std::string > & nucleiList) ;
+    std::vector<CrossSection *> setOfMicroXS(SetOfXS::E_XS microType, std::vector< std::string > & nucleiList) ;
+
 private:
     Library(const Library& orig);
     Library& operator=(const Library& );
@@ -37,7 +38,7 @@ private:
     EnergyMesh * energyMesh ;
     DiscreteMesh * discreteMesh ;
     CartesianOneDimMesh * spatialOneRegionMesh ;
-    std::map<std::string, ProblemCrossSections*> problemMicroXS ;
+    std::map<std::string, SetOfXS*> problemMicroXS ;
 };
 
 #endif	/* LIBRARY_H */

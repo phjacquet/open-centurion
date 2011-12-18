@@ -25,10 +25,10 @@ void testBuildDMF() {
 		EnergyMesh energyMesh(energyBounds, 1969) ;
 		CartesianOneDimMesh spatialMesh(spatialNodes, 11) ;
 
-		vector< pair_MeshOption > meshes;
-		meshes.push_back(pair_MeshOption(&energyMesh,  DoubleMeshField::FULL));
-		meshes.push_back(pair_MeshOption(&energyMesh,  DoubleMeshField::FULL));
-		meshes.push_back(pair_MeshOption(&spatialMesh, DoubleMeshField::FULL));
+		vector< pair_MeshOption_t > meshes;
+		meshes.push_back(pair_MeshOption_t(&energyMesh,  DoubleMeshField::FULL));
+		meshes.push_back(pair_MeshOption_t(&energyMesh,  DoubleMeshField::FULL));
+		meshes.push_back(pair_MeshOption_t(&spatialMesh, DoubleMeshField::FULL));
 
 		DoubleMeshField dmf(meshes);
 		dmf.buildData() ;
@@ -56,33 +56,27 @@ int main(int argc, char** argv) {
         string combustible2Regions[] = {"5"} ;
         string combustible3Regions[] = {"6","7","8","9"} ;
 
-        vector<string> regionsName;
         vector< pair< string, double > > nucleiConcentration ;
 
-        regionsName.resize(sizeof(combustible1Regions)/sizeof(string));
-        copy ( combustible1Regions, combustible1Regions+sizeof(combustible1Regions)/sizeof(string), regionsName.begin() );
         nucleiConcentration.clear() ;
         nucleiConcentration.push_back( pair<string,double>("U235", 0.5) ) ;
         nucleiConcentration.push_back( pair<string,double>("O16",  1.0) ) ;
-        geometry.fill("combustible",regionsName,nucleiConcentration);
+        geometry.fill("combustible",combustible1Regions,5,nucleiConcentration);
 
-        regionsName.resize(sizeof(combustible2Regions)/sizeof(string));
-        copy ( combustible2Regions, combustible2Regions+sizeof(combustible2Regions)/sizeof(string), regionsName.begin() );
         nucleiConcentration.clear() ;
-        nucleiConcentration.push_back( pair<string,double>("U235", 1.0) ) ;
-        geometry.fill("gaine",regionsName,nucleiConcentration);
+        nucleiConcentration.push_back( pair<string,double>("O16", 0.1) ) ;
+        geometry.fill("gaine",combustible2Regions,1,nucleiConcentration);
 
-        regionsName.resize(sizeof(combustible3Regions)/sizeof(string));
-        copy ( combustible3Regions, combustible3Regions+sizeof(combustible3Regions)/sizeof(string), regionsName.begin() );
         nucleiConcentration.clear() ;
-        nucleiConcentration.push_back( pair<string,double>("O16", 1.0) ) ;
-        geometry.fill("modérateur",regionsName,nucleiConcentration);
+        nucleiConcentration.push_back( pair<string,double>("O16", 2.0) ) ;
+        geometry.fill("modérateur",combustible3Regions,4,nucleiConcentration);
 
+        geometry.buildMacros() ;
 
+        cout<<geometry.toString()<<endl; ;
 
         delete spatialMesh;
         delete lib ;
-		cin>>argc ;
 
         // End of Data File
     }    catch (const exception & e) {

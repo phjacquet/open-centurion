@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   DoubleMeshField.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -30,18 +30,21 @@ public:
     void buildData() ;
     void clearFamilies() ;
     void setDouble(FieldIterator & it, double d);
-    double getDouble(FieldIterator & it);
+    double& getDouble(FieldIterator & it);
+    std::vector<double *> getDoubles(FieldIterator & it) ;
     DoubleMeshField & focus(FieldIterator & it);
     DoubleMeshField & clearFocus(FieldIterator & it);
     FieldIterator getIterator() ;
-    
+
     DoubleMeshField operator=(const DoubleMeshField& orig);
-    
+
+    virtual std::string toString(std::string option="")  ;
+
 private:
     void buildFullMeshesMapping() ;
     unsigned getDataIndex(std::vector<std::string*> & coord) ;
     void getDataIndexes(FieldIterator & it, std::vector<unsigned> & indexes) ;
-    
+
     std::vector<Mesh *> meshes ;
     std::vector<OptionMeshField> options ;
     std::vector<unsigned> sizes ;
@@ -50,7 +53,7 @@ private:
     bool lock ;
 };
 
-typedef  std::pair< Mesh*, DoubleMeshField::OptionMeshField> pair_MeshOption ;
+typedef  std::pair< Mesh*, DoubleMeshField::OptionMeshField> pair_MeshOption_t ;
 
 #endif	/* DOUBLEMESHFIELD_H */
 

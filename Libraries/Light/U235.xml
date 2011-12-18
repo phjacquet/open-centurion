@@ -4,7 +4,8 @@
 	</comment>
   <medium 	name = "U235"
 			mesh = "MESH_3G"
-			temperature = "2.94149994E+02">
+			temperature = "2.94149994E+02"
+			scatteringMatrixOrder="2" >
     <for_macro_computation>
       <section type = "TOTAL"
                unit = "barn"
@@ -31,17 +32,21 @@
                rang = "2"
                order = "1">
         2.0E+00  0.0E+00  0.0E+00
-	   -4.0E-02  4.0E+00  2.0E+00
-		0.0E+00 -1.0E-02 -1.0E+00
+	   -4.0E-02  4.0E+00  1.0E-01
+		0.0E+00 -1.0E-02  1.0E+00
       </section>
-      <spectrum>
-        <nu>
-          4.0E+00  3.0E+00  3.0E+00  
-        </nu>
-        <distribution>
-		9.0E-01  1.0E-01  0.0E+00
-        </distribution>
-      </spectrum>
+      <section type = "NU"
+               unit = ""
+               rang = "1"
+               order = "0">
+        4.0E+00  3.0E+00  3.0E+00
+      </section>
+	  <section type = "DISTRIBUTION"
+               unit = ""
+               rang = "1"
+               order = "0">
+        9.0E-01  1.0E-01  0.0E+00
+      </section>
     </for_macro_computation>
 	<for_reaction_rate_computation>
       <section type = "CAPTURE"
