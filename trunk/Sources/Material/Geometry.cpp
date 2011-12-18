@@ -4,9 +4,15 @@
  *
  * Created on 12 juin 2011, 22:32
  */
+
+
+#include <iostream>
+#include <sstream>
 #include <stdexcept>
+#include <boost/foreach.hpp>
 #include "Geometry.h"
 #include "Library.h"
+#include "Exceptions/InputConsistency.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/DiscreteMesh.h"
 #include "Mesh/Region.h"
@@ -39,6 +45,17 @@ Geometry Geometry::operator=(const Geometry& orig) {
 }
 
 void Geometry::fill(const string & name,
+                    const string regionsNameA[],
+                    unsigned sizeA,
+                    const vector< pair< string,double > > & medium) {
+
+    vector<string>  regionsName ;
+    regionsName.resize(sizeA);
+    copy ( regionsNameA, regionsNameA+sizeA, regionsName.begin() );
+    fill(name,regionsName,medium) ;
+}
+
+void Geometry::fill(const string & name,
                     const vector<string> & regionsName,
                     const vector< pair< string,double > > & medium) {
     vector<string> nucleiList ;
@@ -47,17 +64,43 @@ void Geometry::fill(const string & name,
         nucleiList.push_back(medium[n].first) ;
         nucleiConcentrations.push_back(medium[n].second) ;
     }
-    pbMacXS.getXS(ProblemCrossSections::TOTAL)->collapseSpatialRegions(name, regionsName) ;
-    pbMacXS.getXS(ProblemCrossSections::TOTAL)->calculateMacro( name, library->setOfTotalMicroXS(nucleiList), nucleiConcentrations ) ;
+    if (materials.find(name)!=materials.end())
+        throw InputConsistency(13, LOG_INP_CONS_E("Material "+name+" is already defined"));
+    materials[name] = pair< vector<string>,vector<double> >(nucleiList,nucleiConcentrations) ;
+    pbMacXS.getXS(SetOfXS::TOTAL)->collapseSpatialRegions(name, regionsName) ;
+    pbMacXS.getXS(SetOfXS::SCATTERING)->collapseSpatialRegions(name, regionsName) ;
+    pbMacXS.getXS(SetOfXS::FISSION_DISTRIBUTION)->collapseSpatialRegions(name, regionsName) ;
+    pbMacXS.getXS(SetOfXS::NUFISSION)->collapseSpatialRegions(name, regionsName) ;
 }
 
-ProblemCrossSections * Geometry::getXS() {
+void  Geometry::buildMacros() {
+    SetOfXS::E_XS xsTypes[] = {SetOfXS::TOTAL,SetOfXS::SCATTERING,SetOfXS::NUFISSION,SetOfXS::FISSION_DISTRIBUTION};
+    for (unsigned i=0; i<4; i++) {
+        pbMacXS.getXS(xsTypes[i])->buildData() ;
+        typedef pair< const string,pair< vector<string>,vector<double> > > iter_t  ;
+        BOOST_FOREACH(  iter_t &it , materials ) {
+            pbMacXS.getXS(xsTypes[i])->calculateMacro( it.first,
+                    library->setOfMicroXS(xsTypes[i], it.second.first),
+                    it.second.second ) ;
+        }
+    }
+}
+
+SetOfXS * Geometry::getXS() {
     return &pbMacXS;
 }
 
 void Geometry::buildXS() {
-    pbMacXS.newTotalXS( new DefaultTotalCrossSection(energyMesh,spatialMesh) ) ;
-    pbMacXS.newScatXS( new DefaultScatteringCrossSection(energyMesh,discreteMesh,spatialMesh) ) ;
-    pbMacXS.newNuFissXS( new NuFissionCrossSection(energyMesh,spatialMesh) ) ;
-    pbMacXS.newFissDistXS( new FissionDistribution(energyMesh,spatialMesh) ) ;
+    pbMacXS.newXS( new DefaultTotalCrossSection(energyMesh,spatialMesh) ) ;
+    pbMacXS.newXS( new DefaultScatteringCrossSection(energyMesh,discreteMesh,spatialMesh) ) ;
+    pbMacXS.newXS( new NuFissionCrossSection(energyMesh,spatialMesh) ) ;
+    pbMacXS.newXS( new FissionDistribution(energyMesh,spatialMesh) ) ;
+}
+
+string Geometry::toString() {
+    stringstream ss;
+    ss<<"<Geometry>"<<endl;
+    ss<<pbMacXS.toString()<<endl;
+    ss<<"</Geometry>";
+    return ss.str() ;
 }

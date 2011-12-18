@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <string>
+#include "SetOfXS.h"
 
 class DoubleMeshField ;
 
@@ -18,11 +19,14 @@ public:
     CrossSection();
     CrossSection(const CrossSection& orig);
     virtual ~CrossSection();
+    virtual SetOfXS::E_XS getType()  ;
     virtual void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName) = 0 ;
     virtual void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) = 0 ;
     virtual DoubleMeshField * getData() = 0;
-
-private:
+    virtual void buildData() =0;
+    virtual std::string toString()  ;
+protected:
+    SetOfXS::E_XS xsType ;
 };
 
 #endif	/* CROSSSECTION_H */

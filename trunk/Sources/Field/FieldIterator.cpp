@@ -31,12 +31,14 @@ FieldIterator::~FieldIterator() {
 }
 
 FieldIterator & FieldIterator::operator()(const string & expression) {
+    wideIterator = false ;
     stringstream ss_expression(expression);
     string hl_extract;
     unsigned meshIdx = 0;
     while (!ss_expression.eof()) {
         std::getline(ss_expression, hl_extract, ';');
         if (hl_extract.find(",") != string::npos) {
+            wideIterator = true ;
             stringstream ss_hl_extract(hl_extract);
             string ll_extract;
             locData[meshIdx].clear();
@@ -50,6 +52,7 @@ FieldIterator & FieldIterator::operator()(const string & expression) {
             }
             locData[meshIdx].clear();
             if (hl_extract == ":") {
+                wideIterator = true ;
                 locData[meshIdx] = dmf->getMesh(meshIdx)->getListOfRegionsNames();
             } else {
                 locData[meshIdx].push_back(hl_extract);
@@ -114,18 +117,18 @@ string FieldIterator::toString() {
     if (path.size() > 1)
         for (unsigned i = 0; i < path.size() - 1; i++) {
             ss << "[";
-            for (unsigned j = 0; j < path[i].size() - 1; j++) {
-                ss << path[i][j] << ";";
+            for (unsigned j = 0; j < path[i].size() ; j++) {
+                ss << * path[i][j] ;
+                if (j!=path[i].size()-1) ss<<";";
             }
-            if (path[i].size() > 0) ss << path[i].back();
             ss << "],";
         }
     if (path.size() > 0) {
         ss << "[";
-        for (unsigned j = 0; j < path.back().size() - 1; j++) {
-            ss << path.back()[j] << ";";
+        for (unsigned j = 0; j < path.back().size(); j++) {
+            ss << * path.back()[j] ;
+            if (j!=path.back().size()-1) ss<<";";
         }
-        if (path.back().size() > 0) ss << path.back().back();
         ss << "]";
     }
     ss << " }";

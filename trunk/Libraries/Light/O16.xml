@@ -4,7 +4,8 @@
 	</comment>
   <medium 	name = "O16"
 			mesh = "MESH_3G"
-			temperature = "2.94149994E+02">
+			temperature = "2.94149994E+02"
+			scatteringMatrixOrder="2" >
     <for_macro_computation>
       <section type = "TOTAL"
                unit = "barn"
@@ -22,17 +23,17 @@
                unit = "barn"
                rang = "2"
                order = "0">
-        1.3E+01  0.0E+00  0.0E+00
-		2.0E-01  2.0E+01  1.0E+01
-		0.0E+00  1.0E+01  1.0E+02
+        9.0E+00  0.0E+00  0.0E+00
+		2.0E-01  1.0E+01  1.0E+01
+		0.0E+00  5.0E+00  3.0E+01
       </section>
       <section type = "SCATTERING"
                unit = "barn"
                rang = "2"
                order = "1">
         2.0E+00  0.0E+00  0.0E+00
-	   -4.0E-02  4.0E+00  2.0E+00
-		0.0E+00 -1.0E-02 -1.0E+00
+	   -1.0E-02  1.0E+00  1.0E-01
+		0.0E+00 -1.0E-02  5.0E-01
       </section>
     </for_macro_computation>
 	<for_reaction_rate_computation>

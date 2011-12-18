@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   CartesianOneDimMesh.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 1 juin 2011, 21:26
  */
 #include <cstdio>
@@ -58,10 +58,11 @@ unsigned CartesianOneDimMesh::size()  {
 
 string CartesianOneDimMesh::toString() {
     stringstream ss ;
-    ss<<"CartesianOneDimMesh\n" ;
+    ss<<"<CartesianOneDimMesh>" ;
     for (unsigned i=0; i<regions.size()-1; i++) {
         ss<<regions[i].toString()<<";";
     }
     ss<<regions.back().toString() ;
+    ss<<"</CartesianOneDimMesh>\n" ;
     return ss.str();
 }

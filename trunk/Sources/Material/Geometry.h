@@ -10,7 +10,8 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "Sections/ProblemCrossSections.h"
+#include "Sections/SetOfXS.h"
+
 class Library ;
 class Mesh ;
 class DiscreteMesh ;
@@ -22,18 +23,21 @@ public:
     Geometry(Mesh * l_spatialMesh, Library * l_library);
     void fill(const std::string & name, const std::string regionsName[], unsigned size, const std::vector< std::pair< std::string,double > > & medium);
     void fill(const std::string & name, const std::vector<std::string> & regionsName, const std::vector< std::pair< std::string,double > > & medium);
-    ProblemCrossSections * getXS();
+    void buildMacros() ;
+    SetOfXS * getXS();
     virtual ~Geometry();
+    virtual std::string toString() ;
 private:
     Geometry(const Geometry& orig);
     Geometry operator=(const Geometry& orig);
     void buildXS();
 
+    std::map<std::string, std::pair< std::vector<std::string>,std::vector<double> > > materials ;
     Mesh *spatialMesh  ;
     EnergyMesh * energyMesh ;
     DiscreteMesh * discreteMesh ;
     Library *library  ;
-    ProblemCrossSections pbMacXS ;
+    SetOfXS pbMacXS ;
 };
 
 #endif	/* GEOMETRY_H */

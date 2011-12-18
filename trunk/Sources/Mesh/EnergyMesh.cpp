@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   EnergyMesh.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 13 juin 2011, 02:09
  */
 
@@ -57,10 +57,11 @@ unsigned EnergyMesh::size()  {
 
 string EnergyMesh::toString() {
     stringstream ss ;
-    ss<<"EnergyMesh\n" ;
+    ss<<"<EnergyMesh>" ;
     for (unsigned i=0; i < energyGroups.size()-1; i++) {
         ss<<energyGroups[i].toString()<<";";
     }
     ss<<energyGroups.back().toString() ;
+    ss<<"</EnergyMesh>\n" ;
     return ss.str();
 }

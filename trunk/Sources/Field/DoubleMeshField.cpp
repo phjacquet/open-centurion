@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   DoubleMeshField.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 15 juin 2011, 22:33
  */
 
@@ -14,7 +14,7 @@
 
 using namespace std;
 
-DoubleMeshField::DoubleMeshField(vector< pair_MeshOption >& l_meshes) {
+DoubleMeshField::DoubleMeshField(vector< pair_MeshOption_t >& l_meshes) {
     lock = true;
     for (unsigned i = 0; i < l_meshes.size(); i++) {
         meshes.push_back(l_meshes[i].first);
@@ -115,7 +115,7 @@ unsigned DoubleMeshField::getDataIndex(vector<string*> & coord) {
         throw runtime_error("DoubleMeshField::getDataIndex(vector<string> coord) : DoubleMeshField is locked");
     if (coord.size() != meshes.size()) {
         stringstream err ;
-        err<<"DoubleMeshField::getDataIndex(vector<string> coord) : coord and DoubleMeshFiel are not size compatible : ";
+        err<<"DoubleMeshField::getDataIndex(vector<string> coord) : coord and DoubleMeshField are not size compatible : ";
         err<<coord.size()<<" vs "<<meshes.size();
         throw runtime_error(err.str());
     }
@@ -140,9 +140,9 @@ void DoubleMeshField::getDataIndexes(FieldIterator & it, vector<unsigned> & inde
 
     indexes.clear();
     vector< vector< string *> > & path = it.getPath();
-    for (unsigned i = 0; i < path.size(); i++) 
+    for (unsigned i = 0; i < path.size(); i++)
         indexes.push_back(getDataIndex(path[i])) ;
-    
+
 }
 
 void DoubleMeshField::setDouble(FieldIterator & it, double d) {
@@ -154,7 +154,7 @@ void DoubleMeshField::setDouble(FieldIterator & it, double d) {
     for (unsigned idx = 0; idx < indexes.size(); idx++) data[indexes[idx]] = d;
 }
 
-double DoubleMeshField::getDouble(FieldIterator & it) {
+double& DoubleMeshField::getDouble(FieldIterator & it) {
     if (lock == true)
         throw runtime_error("DoubleMeshField::getDouble(FieldIterator * it) : DoubleMeshField is locked");
     if (it.isWideIterator()) {
@@ -164,4 +164,56 @@ double DoubleMeshField::getDouble(FieldIterator & it) {
     vector<unsigned> indexes;
     getDataIndexes(it, indexes);
     return data[indexes[0]];
+}
+
+vector<double *> DoubleMeshField::getDoubles(FieldIterator & it) {
+    if (lock == true)
+        throw runtime_error("DoubleMeshField::getDoubles(FieldIterator * it) : DoubleMeshField is locked");
+    vector<double *> rvalue ;
+    vector<unsigned> indexes;
+    getDataIndexes(it, indexes);
+    for (unsigned i = 0; i < indexes.size(); i++)
+        rvalue.push_back(& data[indexes[i]]) ;
+    return rvalue;
+}
+
+string DoubleMeshField::toString(string option) {
+    if (option=="")
+        option = "md" ;
+
+    stringstream ss;
+    if (lock) {
+        ss << "<DoubleMeshField>"<<endl;
+        ss<<"Locked"<<endl;
+        ss << "</DoubleMeshField>";
+        return ss.str();
+    }
+
+    ss << "<DoubleMeshField>"<<endl;
+
+    if (option.find("m")!=string::npos) {
+        ss << "<Meshes>"<<endl;
+        for (unsigned m = 0; m < meshes.size(); m++) {
+            ss<<meshes[m]->toString() ;
+        }
+        ss << "</Meshes>"<<endl;
+    }
+    if (option.find("d")!=string::npos) {
+        ss << "<data>"<<endl;
+        FieldIterator it = this->getIterator() ;
+        stringstream sit ;
+        for (unsigned m = 0; m < meshes.size()-1; m++) sit<<":;";
+            sit<<":";
+        vector< vector< string *> > & path = it(sit.str()).getPath();
+        for (unsigned i = 0; i < path.size(); i++) {
+            for (unsigned j = 0; j < path[i].size()-1; j++) {
+                ss<<*(path[i][j])<<";";
+            }
+            ss<<*(path[i].back())<<"=";
+            ss<<data[getDataIndex(path[i])]<<endl;
+        }
+        ss << "</data>"<<endl;
+    }
+    ss << "</DoubleMeshField>";
+    return ss.str();
 }

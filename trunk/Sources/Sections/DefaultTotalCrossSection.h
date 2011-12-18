@@ -21,7 +21,9 @@ public:
     virtual ~DefaultTotalCrossSection();
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
     DoubleMeshField * getData() ;
+    void buildData() ;
     void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) ;
+    virtual std::string toString()  ;
 
 private:
 

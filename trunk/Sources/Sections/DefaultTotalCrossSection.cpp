@@ -5,21 +5,25 @@
  * Created on 1 juin 2011, 22:17
  */
 
+#include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <sstream>
 #include "DefaultTotalCrossSection.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/Mesh.h"
 #include "Field/DoubleMeshField.h"
-
+#include "SetOfXS.h"
+#include "Exceptions/InputConsistency.h"
 
 using namespace std;
 
 DefaultTotalCrossSection::DefaultTotalCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh) {
-    vector< pair_MeshOption > meshes;
-    meshes.push_back(pair_MeshOption(energyMesh, DoubleMeshField::FULL));
-    meshes.push_back(pair_MeshOption(spatialMesh, DoubleMeshField::LAZY));
+    vector< pair_MeshOption_t > meshes;
+    meshes.push_back(pair_MeshOption_t(energyMesh, DoubleMeshField::FULL));
+    meshes.push_back(pair_MeshOption_t(spatialMesh, DoubleMeshField::LAZY));
     data = new DoubleMeshField(meshes);
+    xsType = SetOfXS::TOTAL ;
 }
 
 DefaultTotalCrossSection::DefaultTotalCrossSection(const DefaultTotalCrossSection& orig) {
@@ -39,9 +43,32 @@ DoubleMeshField * DefaultTotalCrossSection::getData() {
     return data ;
 }
 
+void DefaultTotalCrossSection::buildData() {
+    data->buildData();
+}
+
 void DefaultTotalCrossSection::calculateMacro(const string & mediumName,
                                               vector<CrossSection*> microXS,
                                               const vector< double > & concentrations) {
     FieldIterator it = data->getIterator() ;
-    data->setDouble( it(":;"+mediumName) , 0 );
+    data->setDouble( it(":;"+mediumName) , 0.0 );
+    vector<double*> dM = data->getDoubles(it(":;"+mediumName)) ;
+    for (unsigned n=0; n<microXS.size(); n++) {
+        vector<double *> dm = microXS[n]->getData()->getDoubles(it(":;-")) ;
+        if (dM.size()!=dm.size())
+            throw InputConsistency(14, LOG_INP_CONS_E("DefaultTotalCrossSection::calculateMacro(...) : medium "+
+                                                      mediumName+
+                                                      " is not compatible with one of micro cross sections"));
+        for (unsigned g=0; g<data->getMesh(0)->size(); g++) {
+            *dM[g]+=(*dm[g])*concentrations[n] ;
+        }
+    }
+}
+
+string DefaultTotalCrossSection::toString() {
+    stringstream ss;
+    ss<<"<DefaultTotalCrossSection>"<<endl;
+    ss<<data->toString()<<endl;
+    ss<<"</DefaultTotalCrossSection>"<<endl;
+    return ss.str() ;
 }
