@@ -48,8 +48,11 @@ void DefaultTotalCrossSection::buildData() {
 }
 
 void DefaultTotalCrossSection::calculateMacro(const string & mediumName,
-                                              vector<CrossSection*> microXS,
+                                             map< SetOfXS::E_XS, vector<CrossSection*> > mmicroXS,
                                               const vector< double > & concentrations) {
+    if (mmicroXS.find(SetOfXS::TOTAL)==mmicroXS.end())
+        throw InputConsistency(20, LOG_INP_CONS_E("DefaultTotalCrossSection::calculateMacro(...) : mmicroXS does not contain required micros XS"));
+    vector<CrossSection*> & microXS = mmicroXS[SetOfXS::TOTAL] ;
     FieldIterator it = data->getIterator() ;
     data->setDouble( it(":;"+mediumName) , 0.0 );
     vector<double*> dM = data->getDoubles(it(":;"+mediumName)) ;
@@ -65,10 +68,10 @@ void DefaultTotalCrossSection::calculateMacro(const string & mediumName,
     }
 }
 
-string DefaultTotalCrossSection::toString() {
+string DefaultTotalCrossSection::toString(const string & option) {
     stringstream ss;
     ss<<"<DefaultTotalCrossSection>"<<endl;
-    ss<<data->toString()<<endl;
+    ss<<data->toString(option)<<endl;
     ss<<"</DefaultTotalCrossSection>"<<endl;
     return ss.str() ;
 }

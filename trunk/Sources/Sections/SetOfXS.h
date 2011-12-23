@@ -23,11 +23,12 @@ public:
         TOTAL=1,
         SCATTERING=2,
         NUFISSION=3,
-        FISSION_DISTRIBUTION=4
+        FISSION_DISTRIBUTION=4,
+        FISSION_PRODUCTION=5
     };
 
     CrossSection * getXS(E_XS xs) ;
-    virtual std::string toString()  ;
+    virtual std::string toString(const std::string & option="")  ;
 private:
 
     std::map<E_XS, CrossSection *> xsMap;

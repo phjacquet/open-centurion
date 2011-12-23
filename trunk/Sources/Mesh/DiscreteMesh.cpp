@@ -52,11 +52,10 @@ unsigned DiscreteMesh::size()  {
 
 string DiscreteMesh::toString() {
     stringstream ss ;
-    ss<<"<DiscreteMesh>" ;
-    for (unsigned i=0; i<regions.size()-1; i++) {
-        ss<<regions[i].toString()<<";";
+    ss<<"<DiscreteMesh>"<<endl ;
+    for (unsigned i=0; i<regions.size(); i++) {
+        ss<<regions[i].toString()<<endl;;
     }
-    ss<<regions.back().toString() ;
     ss<<"</DiscreteMesh>\n" ;
 
     return ss.str();

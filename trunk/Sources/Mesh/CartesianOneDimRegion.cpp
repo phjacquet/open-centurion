@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   CartesianOneDimRegion.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 11 juin 2011, 19:06
  */
 
@@ -27,6 +27,6 @@ CartesianOneDimRegion::~CartesianOneDimRegion() {
 
 std::string CartesianOneDimRegion::toString() {
     stringstream ss ;
-    ss<<"[ <"<<name<<"> "<<center-thickness/2.<<","<<center+thickness/2<<"]";
+    ss<<"<Cart1D name=\""<<name<<"\"> "<<center-thickness/2.<<" "<<center+thickness/2<<"</Cart1D>";
     return ss.str();
 }

@@ -49,8 +49,12 @@ void DefaultScatteringCrossSection::buildData() {
 }
 
 void DefaultScatteringCrossSection::calculateMacro(const string & mediumName,
-                                              vector<CrossSection*> microXS,
+                                             map< SetOfXS::E_XS, vector<CrossSection*> > mmicroXS,
                                               const vector< double > & concentrations) {
+    //cout<<"DefaultScatteringCrossSection::calculateMacro("<<mediumName<<","<<mmicroXS.size()<<","<<concentrations.size()<<")"<<endl;
+    if (mmicroXS.find(SetOfXS::SCATTERING)==mmicroXS.end())
+        throw InputConsistency(21, LOG_INP_CONS_E("DefaultScatteringCrossSection::calculateMacro(...) : mmicroXS does not contain required micros XS"));
+    vector<CrossSection*> & microXS = mmicroXS[SetOfXS::SCATTERING] ;
     FieldIterator it = data->getIterator() ;
     data->setDouble( it(":;:;:;"+mediumName) , 0.0 );
     vector<double*> dM = data->getDoubles(it(":;:;:;"+mediumName)) ;
@@ -61,16 +65,16 @@ void DefaultScatteringCrossSection::calculateMacro(const string & mediumName,
                                                       mediumName+
                                                       " is not compatible with one of micro cross sections"));
         for (unsigned i=0; i<dM.size(); i++) {
-            cout<<*dm[i]<<" * "<<concentrations[n]<<endl;
+            //cout<<*dm[i]<<" * "<<concentrations[n]<<endl;
             *dM[i]+=(*dm[i])*concentrations[n] ;
         }
     }
 }
 
-string DefaultScatteringCrossSection::toString() {
+string DefaultScatteringCrossSection::toString(const string & option) {
     stringstream ss;
     ss<<"<DefaultScatteringCrossSection>"<<endl;
-    ss<<data->toString()<<endl;
+    ss<<data->toString(option)<<endl;
     ss<<"</DefaultScatteringCrossSection>"<<endl;
     return ss.str() ;
 }

@@ -47,8 +47,11 @@ void FissionDistribution::buildData() {
 }
 
 void FissionDistribution::calculateMacro(const string & mediumName,
-                                              vector<CrossSection*> microXS,
+                                             map< SetOfXS::E_XS, vector<CrossSection*> > mmicroXS,
                                               const vector< double > & concentrations) {
+    if (mmicroXS.find(SetOfXS::FISSION_DISTRIBUTION)==mmicroXS.end())
+        throw InputConsistency(19, LOG_INP_CONS_E("FissionDistribution::calculateMacro(...) : mmicroXS does not contain required micros XS"));
+    vector<CrossSection*> & microXS = mmicroXS[SetOfXS::FISSION_DISTRIBUTION] ;
     FieldIterator it = data->getIterator() ;
     data->setDouble( it(":;"+mediumName) , 0.0 );
     vector<double*> dM = data->getDoubles(it(":;"+mediumName)) ;
@@ -59,15 +62,15 @@ void FissionDistribution::calculateMacro(const string & mediumName,
                                                       mediumName+
                                                       " is not compatible with one of micro cross sections"));
         for (unsigned g=0; g<data->getMesh(0)->size(); g++) {
-            *dM[g]+=(*dm[g])*concentrations[n] ;
+            //*dM[g]+=
         }
     }
 }
 
-string FissionDistribution::toString() {
+string FissionDistribution::toString(const string & option) {
     stringstream ss;
     ss<<"<FissionDistribution>"<<endl;
-    ss<<data->toString()<<endl;
+    ss<<data->toString(option)<<endl;
     ss<<"</FissionDistribution>"<<endl;
     return ss.str() ;
 }

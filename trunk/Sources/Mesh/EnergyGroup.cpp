@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   EnergyGroup.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 14 juin 2011, 22:12
  */
 
@@ -27,6 +27,6 @@ EnergyGroup::~EnergyGroup() {
 
 string EnergyGroup::toString() {
     stringstream ss ;
-    ss<<"[ <"<<name<<"> "<<energyLeft<<","<<energyRight<<"]"; 
+    ss<<"<G name=\""<<name<<"\"> "<<energyLeft<<" "<<energyRight<<"</G>";
     return ss.str();
 }

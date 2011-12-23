@@ -49,6 +49,7 @@ private:
     std::vector<OptionMeshField> options ;
     std::vector<unsigned> sizes ;
     std::vector< std::map<std::string,int> > mappings ;
+    std::map< std::string, std::pair< unsigned, std::vector < std::string > > > regionsUnions ;
     std::vector<double> data ;
     bool lock ;
 };

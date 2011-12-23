@@ -40,7 +40,7 @@ void testBuildDMF() {
 int main(int argc, char** argv) {
     try {
         // Beginning of Data File
-
+        cout<<"<sortie>"<<endl;
 		testBuildDMF() ;
 
         double spatialNodes[] = {0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10.};
@@ -82,6 +82,7 @@ int main(int argc, char** argv) {
     }    catch (const exception & e) {
         cout << e.what() << endl;
     }
+    cout<<"</sortie>"<<endl;
     return 0;
 }
 

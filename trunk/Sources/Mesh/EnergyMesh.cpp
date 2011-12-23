@@ -57,11 +57,10 @@ unsigned EnergyMesh::size()  {
 
 string EnergyMesh::toString() {
     stringstream ss ;
-    ss<<"<EnergyMesh>" ;
-    for (unsigned i=0; i < energyGroups.size()-1; i++) {
-        ss<<energyGroups[i].toString()<<";";
+    ss<<"<EnergyMesh>"<<endl ;
+    for (unsigned i=0; i < energyGroups.size(); i++) {
+        ss<<energyGroups[i].toString()<<endl;
     }
-    ss<<energyGroups.back().toString() ;
     ss<<"</EnergyMesh>\n" ;
     return ss.str();
 }

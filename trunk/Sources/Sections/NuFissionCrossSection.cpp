@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
 #include "NuFissionCrossSection.h"
 #include "Mesh/EnergyMesh.h"
 #include "Mesh/Mesh.h"
@@ -48,8 +49,12 @@ void NuFissionCrossSection::buildData() {
 }
 
 void NuFissionCrossSection::calculateMacro(const string & mediumName,
-                                              vector<CrossSection*> microXS,
+                                             map< SetOfXS::E_XS, vector<CrossSection*> > mmicroXS,
                                               const vector< double > & concentrations) {
+    //cout<<"NuFissionCrossSection::calculateMacro("<<mediumName<<","<<mmicroXS.size()<<","<<concentrations.size()<<")"<<endl;
+    if (mmicroXS.find(SetOfXS::NUFISSION)==mmicroXS.end())
+        throw InputConsistency(18, LOG_INP_CONS_E("NuFissionCrossSection::calculateMacro(...) : mmicroXS does not contain required micros XS"));
+    vector<CrossSection*> & microXS = mmicroXS[SetOfXS::NUFISSION] ;
     FieldIterator it = data->getIterator() ;
     data->setDouble( it(":;"+mediumName) , 0.0 );
     vector<double*> dM = data->getDoubles(it(":;"+mediumName)) ;
@@ -65,10 +70,10 @@ void NuFissionCrossSection::calculateMacro(const string & mediumName,
     }
 }
 
-string NuFissionCrossSection::toString() {
+string NuFissionCrossSection::toString(const string & option) {
     stringstream ss;
     ss<<"<NuFissionCrossSection>"<<endl;
-    ss<<data->toString()<<endl;
+    ss<<data->toString(option)<<endl;
     ss<<"</NuFissionCrossSection>"<<endl;
     return ss.str() ;
 }
