@@ -85,6 +85,7 @@ void DoubleMeshField::buildFamily(unsigned meshIndex, vector<string> regionsName
     }
     mappings[meshIndex][familyName] = sizes[meshIndex];
     sizes[meshIndex]++;
+    regionsUnions[familyName] = pair<unsigned,vector<string> >(meshIndex,regionsName);
 }
 
 void DoubleMeshField::clearFamilies() {
@@ -95,6 +96,7 @@ void DoubleMeshField::clearFamilies() {
             sizes[meshIndex] = 0;
         }
     }
+    regionsUnions.clear() ;
 }
 
 void DoubleMeshField::buildData() {
@@ -199,20 +201,52 @@ string DoubleMeshField::toString(string option) {
         ss << "</Meshes>"<<endl;
     }
     if (option.find("d")!=string::npos) {
-        ss << "<data>"<<endl;
+        ss << "<Data>"<<endl;
         FieldIterator it = this->getIterator() ;
         stringstream sit ;
         for (unsigned m = 0; m < meshes.size()-1; m++) sit<<":;";
             sit<<":";
         vector< vector< string *> > & path = it(sit.str()).getPath();
         for (unsigned i = 0; i < path.size(); i++) {
+            ss<<"<Value key=\"";
             for (unsigned j = 0; j < path[i].size()-1; j++) {
                 ss<<*(path[i][j])<<";";
             }
-            ss<<*(path[i].back())<<"=";
-            ss<<data[getDataIndex(path[i])]<<endl;
+            ss<<*(path[i].back())<<"\"> ";
+            ss<<data[getDataIndex(path[i])];
+            ss<<" </Value>"<<endl;
         }
-        ss << "</data>"<<endl;
+        ss << "</Data>"<<endl;
+    }
+    if (option.find("M")!=string::npos) {
+        ss << "<LastMeshMapping>"<<endl;
+        typedef map< string,pair< unsigned,vector<string> > >::iterator iter_t ;
+        for (iter_t u = regionsUnions.begin() ; u != regionsUnions.end(); ++u) {
+            ss<<u->first<<"=";
+            for (unsigned r = 0; r < u->second.second.size(); r++) {
+                ss<<u->second.second[r]<<" ";
+            }
+            ss<<endl;
+        }
+        ss << "</LastMeshMapping>"<<endl;
+        ss << "<OnLastMeshMappedData>"<<endl;
+        FieldIterator it = this->getIterator() ;
+        for (iter_t u = regionsUnions.begin() ; u != regionsUnions.end(); ++u) {
+            stringstream sit ;
+            for (unsigned m = 0; m < meshes.size()-1; m++) sit<<":;";
+            sit<<u->first;
+            vector< vector< string *> > & path = it(sit.str()).getPath();
+            for (unsigned i = 0; i < path.size(); i++) {
+                ss<<"<Value key=\"";
+                for (unsigned j = 0; j < path[i].size()-1; j++) {
+                    ss<<*(path[i][j])<<";";
+                }
+                ss<<*(path[i].back())<<"\"> ";
+                ss<<data[getDataIndex(path[i])];
+                ss<<" </Value>"<<endl;
+            }
+        }
+        ss << "</OnLastMeshMappedData>"<<endl;
     }
     ss << "</DoubleMeshField>";
     return ss.str();

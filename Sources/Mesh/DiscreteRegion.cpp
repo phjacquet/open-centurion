@@ -20,6 +20,6 @@ DiscreteRegion::~DiscreteRegion() {
 }
 string DiscreteRegion::toString() {
     stringstream ss ;
-    ss<<"[ <"<<name<<">"<<"]";
+    ss<<"<Discrete name=\""<<name<<"\"/> ";
     return ss.str();
 }

@@ -24,7 +24,7 @@ SetOfXS::E_XS CrossSection::getType()  {
     return xsType ;
 }
 
-string CrossSection::toString() {
+string CrossSection::toString(const string & option) {
     stringstream ss;
     ss<<"<CrossSection>"<<endl;
     ss<<"unimplemented method"<<endl;

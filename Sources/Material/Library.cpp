@@ -182,7 +182,7 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
                         double d;
                         data>>d ;
                         (*xs)[i]=d ;
-                        cout<<"reading "<<d<<endl;
+                        //cout<<"reading "<<d<<endl;
                     }
                 }
             }
@@ -205,7 +205,7 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
                     stringstream sit ;
                     sit<<g<<";-" ;
                     xs->getData()->setDouble(tfit(sit.str()),totalXS[g]) ;
-                    cout<<sit.str()<<":"<<totalXS[g]<<"  "<<xs->getData()->getDouble(tfit(sit.str()))<<endl;
+                    //cout<<sit.str()<<":"<<totalXS[g]<<"  "<<xs->getData()->getDouble(tfit(sit.str()))<<endl;
         }
 
         ///Filling scattering micro cross section
@@ -219,7 +219,7 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
                     stringstream sit ;
                     sit<<g<<";"<<gp<<";"<<"D"<<l<<";-" ;
                     xs->getData()->setDouble(sfit(sit.str()),scatteringXS[l][g*NG+gp]) ;
-                    cout<<sit.str()<<":"<<scatteringXS[l][g*energyMesh->size()+gp]<<"  "<<xs->getData()->getDouble(sfit(sit.str()))<<endl;
+                    //cout<<sit.str()<<":"<<scatteringXS[l][g*energyMesh->size()+gp]<<"  "<<xs->getData()->getDouble(sfit(sit.str()))<<endl;
                 }
             }
         }
@@ -233,7 +233,7 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
                     stringstream sit ;
                     sit<<g<<";-" ;
                     xs->getData()->setDouble(nffit(sit.str()),nu[g]*fissionXS[g]) ;
-                    cout<<sit.str()<<":"<<nu[g]<<" * "<<fissionXS[g]<<"  "<<xs->getData()->getDouble(nffit(sit.str()))<<endl;
+                    //cout<<sit.str()<<":"<<nu[g]<<" * "<<fissionXS[g]<<"  "<<xs->getData()->getDouble(nffit(sit.str()))<<endl;
         }
 
         ///Filling fission distribution of micro
@@ -245,7 +245,7 @@ bool Library::loadCrossSectionLibraryFile(const std::string& fileName) {
                     stringstream sit ;
                     sit<<g<<";-" ;
                     xs->getData()->setDouble(fdfit(sit.str()),fissionDist[g]) ;
-                    cout<<sit.str()<<":"<<fissionDist[g]<<"  "<<xs->getData()->getDouble(fdfit(sit.str()))<<endl;
+                    //cout<<sit.str()<<":"<<fissionDist[g]<<"  "<<xs->getData()->getDouble(fdfit(sit.str()))<<endl;
         }
 
         return 1 ;

@@ -58,11 +58,10 @@ unsigned CartesianOneDimMesh::size()  {
 
 string CartesianOneDimMesh::toString() {
     stringstream ss ;
-    ss<<"<CartesianOneDimMesh>" ;
-    for (unsigned i=0; i<regions.size()-1; i++) {
-        ss<<regions[i].toString()<<";";
+    ss<<"<CartesianOneDimMesh>"<<endl ;
+    for (unsigned i=0; i<regions.size(); i++) {
+        ss<<regions[i].toString()<<endl;
     }
-    ss<<regions.back().toString() ;
     ss<<"</CartesianOneDimMesh>\n" ;
     return ss.str();
 }

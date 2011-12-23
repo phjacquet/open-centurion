@@ -1,23 +1,24 @@
 /*
- * File:   NuFissionCrossSection.h
+ * File:   FissionProduction.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
  * Created on 1 juin 2011, 22:54
  */
 
-#ifndef NUFISSIONCROSSSECTION_H
-#define	NUFISSIONCROSSSECTION_H
+#ifndef FISSIONPRODUCTION_H
+#define FISSIONPRODUCTION_H
+
 #include "CrossSection.h"
 
 class Mesh;
 class EnergyMesh;
 class DoubleMeshField;
 
-class NuFissionCrossSection : public CrossSection {
+class FissionProduction : public CrossSection {
 public:
-    NuFissionCrossSection(EnergyMesh * energyMesh, Mesh * spatialMesh);
-    NuFissionCrossSection(const NuFissionCrossSection& orig);
-    virtual ~NuFissionCrossSection();
+    FissionProduction(EnergyMesh * energyMesh, Mesh * spatialMesh);
+    FissionProduction(const FissionProduction& orig);
+    virtual ~FissionProduction();
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName);
     DoubleMeshField * getData() ;
     void buildData() ;
@@ -29,5 +30,4 @@ private:
 
 };
 
-#endif	/* NUFISSIONCROSSSECTION_H */
-
+#endif // FISSIONPRODUCTION_H

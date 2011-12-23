@@ -20,6 +20,7 @@
 #include "Sections/DefaultScatteringCrossSection.h"
 #include "Sections/NuFissionCrossSection.h"
 #include "Sections/FissionDistribution.h"
+#include "Sections/FissionProduction.h"
 
 using namespace std;
 
@@ -34,7 +35,6 @@ Geometry::Geometry(Mesh * l_spatialMesh, Library * l_library) {
 
 Geometry::~Geometry() {
 }
-
 
 Geometry::Geometry(const Geometry& orig) {
     throw runtime_error("Geometry::Geometry(const Geometry& orig)") ;
@@ -67,22 +67,34 @@ void Geometry::fill(const string & name,
     if (materials.find(name)!=materials.end())
         throw InputConsistency(13, LOG_INP_CONS_E("Material "+name+" is already defined"));
     materials[name] = pair< vector<string>,vector<double> >(nucleiList,nucleiConcentrations) ;
-    pbMacXS.getXS(SetOfXS::TOTAL)->collapseSpatialRegions(name, regionsName) ;
-    pbMacXS.getXS(SetOfXS::SCATTERING)->collapseSpatialRegions(name, regionsName) ;
-    pbMacXS.getXS(SetOfXS::FISSION_DISTRIBUTION)->collapseSpatialRegions(name, regionsName) ;
-    pbMacXS.getXS(SetOfXS::NUFISSION)->collapseSpatialRegions(name, regionsName) ;
+
+    SetOfXS::E_XS xsTypes[] = { SetOfXS::TOTAL,
+                                SetOfXS::SCATTERING,
+                                SetOfXS::NUFISSION,
+                                SetOfXS::FISSION_DISTRIBUTION,
+                                SetOfXS::FISSION_PRODUCTION    };
+    for (unsigned i=0; i<sizeof(xsTypes)/sizeof(SetOfXS::E_XS); i++)
+        pbMacXS.getXS(xsTypes[i])->collapseSpatialRegions(name, regionsName) ;
+
 }
 
 void  Geometry::buildMacros() {
-    SetOfXS::E_XS xsTypes[] = {SetOfXS::TOTAL,SetOfXS::SCATTERING,SetOfXS::NUFISSION,SetOfXS::FISSION_DISTRIBUTION};
-    for (unsigned i=0; i<4; i++) {
+    SetOfXS::E_XS xsTypes[] = {SetOfXS::TOTAL,SetOfXS::SCATTERING,SetOfXS::NUFISSION};
+    typedef pair< const string,pair< vector<string>,vector<double> > > iter_t  ;
+    for (unsigned i=0; i<3; i++) {
         pbMacXS.getXS(xsTypes[i])->buildData() ;
-        typedef pair< const string,pair< vector<string>,vector<double> > > iter_t  ;
         BOOST_FOREACH(  iter_t &it , materials ) {
-            pbMacXS.getXS(xsTypes[i])->calculateMacro( it.first,
-                    library->setOfMicroXS(xsTypes[i], it.second.first),
-                    it.second.second ) ;
+            map<SetOfXS::E_XS, vector <CrossSection *> > microXS ;
+            microXS[xsTypes[i]]=library->setOfMicroXS(xsTypes[i], it.second.first) ;
+            pbMacXS.getXS(xsTypes[i])->calculateMacro( it.first,microXS,it.second.second ) ;
         }
+    }
+    pbMacXS.getXS(SetOfXS::FISSION_PRODUCTION)->buildData() ;
+    BOOST_FOREACH(  iter_t &it , materials ) {
+        map<SetOfXS::E_XS, vector <CrossSection *> > microXS ;
+        microXS[SetOfXS::FISSION_DISTRIBUTION]=library->setOfMicroXS(SetOfXS::FISSION_DISTRIBUTION, it.second.first) ;
+        microXS[SetOfXS::NUFISSION]=library->setOfMicroXS(SetOfXS::NUFISSION, it.second.first) ;
+        pbMacXS.getXS(SetOfXS::FISSION_PRODUCTION)->calculateMacro( it.first,microXS,it.second.second ) ;
     }
 }
 
@@ -95,12 +107,14 @@ void Geometry::buildXS() {
     pbMacXS.newXS( new DefaultScatteringCrossSection(energyMesh,discreteMesh,spatialMesh) ) ;
     pbMacXS.newXS( new NuFissionCrossSection(energyMesh,spatialMesh) ) ;
     pbMacXS.newXS( new FissionDistribution(energyMesh,spatialMesh) ) ;
+    pbMacXS.newXS( new FissionProduction(energyMesh,spatialMesh) ) ;
+
 }
 
 string Geometry::toString() {
     stringstream ss;
     ss<<"<Geometry>"<<endl;
-    ss<<pbMacXS.toString()<<endl;
+    ss<<pbMacXS.toString("mM")<<endl;
     ss<<"</Geometry>";
     return ss.str() ;
 }

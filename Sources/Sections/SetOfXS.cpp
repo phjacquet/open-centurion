@@ -43,11 +43,11 @@ CrossSection * SetOfXS::getXS(E_XS xs) {
     return (xsMap.find(xs)->second);
 }
 
-string SetOfXS::toString() {
+string SetOfXS::toString(const string & option) {
     stringstream ss;
     ss << "<SetOfXS>"<<endl;
     for (map<E_XS, CrossSection *>::iterator it = xsMap.begin(); it != xsMap.end(); it++)
-        ss<<it->second->toString() ;
+        ss<<it->second->toString(option) ;
     ss << "</SetOfXS>";
     return ss.str();
 }

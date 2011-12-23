@@ -22,8 +22,8 @@ public:
     void collapseSpatialRegions(const std::string & name, const std::vector< std::string > & regionsName)  ;
     DoubleMeshField * getData() ;
     void buildData() ;
-    void calculateMacro(const std::string & mediumName, std::vector<CrossSection*> microXS, const std::vector< double > & concentrations ) ;
-    virtual std::string toString()  ;
+    void calculateMacro(const std::string & mediumName, std::map< SetOfXS::E_XS, std::vector<CrossSection*> >  mmicroXS, const std::vector< double > & concentrations ) ;
+    virtual std::string toString(const std::string & option="")  ;
 
 private:
 
