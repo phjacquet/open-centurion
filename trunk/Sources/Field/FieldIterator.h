@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   FieldIterator.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -19,14 +19,14 @@ public:
     virtual ~FieldIterator();
     FieldIterator & operator()(const std::string & expression);
     bool isWideIterator();
-    void computePath();
     std::vector< std::vector< std::string*> > &  getPath() ;
     std::string toString();
-    
+
 private:
     FieldIterator(DoubleMeshField * l_dmf);
     unsigned size(unsigned meshIndex);
     std::string& get(unsigned meshIndex, unsigned regionIndex);
+    void computePath();
 
     DoubleMeshField * dmf;
     std::vector< std::vector< std::string> > locData;

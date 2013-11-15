@@ -83,14 +83,14 @@ void  Geometry::buildMacros() {
     typedef pair< const string,pair< vector<string>,vector<double> > > iter_t  ;
     for (unsigned i=0; i<3; i++) {
         pbMacXS.getXS(xsTypes[i])->buildData() ;
-        BOOST_FOREACH(  iter_t &it , materials ) {
+        BOOST_FOREACH( iter_t &it , materials ) {
             map<SetOfXS::E_XS, vector <CrossSection *> > microXS ;
             microXS[xsTypes[i]]=library->setOfMicroXS(xsTypes[i], it.second.first) ;
             pbMacXS.getXS(xsTypes[i])->calculateMacro( it.first,microXS,it.second.second ) ;
         }
     }
     pbMacXS.getXS(SetOfXS::FISSION_PRODUCTION)->buildData() ;
-    BOOST_FOREACH(  iter_t &it , materials ) {
+    BOOST_FOREACH( iter_t &it , materials ) {
         map<SetOfXS::E_XS, vector <CrossSection *> > microXS ;
         microXS[SetOfXS::FISSION_DISTRIBUTION]=library->setOfMicroXS(SetOfXS::FISSION_DISTRIBUTION, it.second.first) ;
         microXS[SetOfXS::NUFISSION]=library->setOfMicroXS(SetOfXS::NUFISSION, it.second.first) ;

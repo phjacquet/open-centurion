@@ -46,7 +46,7 @@ Region* DiscreteMesh::getRegion(std::string s) {
     else return &regions[n] ;
 }
 
-unsigned DiscreteMesh::size()  {
+unsigned DiscreteMesh::size() const {
     return regions.size();
 }
 

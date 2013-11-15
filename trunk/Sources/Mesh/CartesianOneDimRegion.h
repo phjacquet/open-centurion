@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   CartesianOneDimRegion.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -12,9 +12,12 @@
 class CartesianOneDimRegion : public Region {
 public:
     CartesianOneDimRegion(double l_center, double l_thickness, std::string l_name);
-    CartesianOneDimRegion(const CartesianOneDimRegion& orig); 
+    CartesianOneDimRegion(const CartesianOneDimRegion& orig);
     virtual ~CartesianOneDimRegion();
     std::string toString() ;
+    double getThickness() const ;
+    double getCenter() const ;
+
 private:
     double center;
     double thickness;

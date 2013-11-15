@@ -25,6 +25,15 @@ CartesianOneDimRegion::CartesianOneDimRegion(const CartesianOneDimRegion& orig) 
 CartesianOneDimRegion::~CartesianOneDimRegion() {
 }
 
+double CartesianOneDimRegion::getThickness() const  {
+    return thickness;
+}
+
+double CartesianOneDimRegion::getCenter() const {
+    return center;
+}
+
+
 std::string CartesianOneDimRegion::toString() {
     stringstream ss ;
     ss<<"<Cart1D name=\""<<name<<"\"> "<<center-thickness/2.<<" "<<center+thickness/2<<"</Cart1D>";
