@@ -52,7 +52,7 @@ Region* CartesianOneDimMesh::getRegion(std::string s) {
     else return &regions[n] ;
 }
 
-unsigned CartesianOneDimMesh::size()  {
+unsigned CartesianOneDimMesh::size()  const {
     return regions.size();
 }
 

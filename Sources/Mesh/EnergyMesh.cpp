@@ -51,7 +51,7 @@ Region* EnergyMesh::getRegion(std::string s) {
     else return &energyGroups[n] ;
 }
 
-unsigned EnergyMesh::size()  {
+unsigned EnergyMesh::size() const {
     return energyGroups.size();
 }
 

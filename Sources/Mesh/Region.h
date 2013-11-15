@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Region.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *

@@ -13,7 +13,10 @@
 #include "Material/Geometry.h"
 #include "Solver/PijSolver.h"
 #include "Exceptions/InputConsistency.h"
-#include "Field\DoubleMeshField.h"
+#include "Field/DoubleMeshField.h"
+#include "Sections/SetOfXS.h"
+#include "Sections/CrossSection.h"
+
 
 using namespace std;
 
@@ -37,12 +40,8 @@ void testBuildDMF() {
 		//cout<<i("0;0,1,2,3;:").toString()<<endl;
 }
 
-int main(int argc, char** argv) {
-    try {
-        // Beginning of Data File
-        cout<<"<sortie>"<<endl;
-		testBuildDMF() ;
-
+void testBuildMedium() {
+    // Beginning of Data File
         double spatialNodes[] = {0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10.};
         Mesh * spatialMesh = new CartesianOneDimMesh(spatialNodes, 11);
 
@@ -69,20 +68,32 @@ int main(int argc, char** argv) {
 
         nucleiConcentration.clear() ;
         nucleiConcentration.push_back( pair<string,double>("O16", 2.0) ) ;
-        geometry.fill("modérateur",combustible3Regions,4,nucleiConcentration);
+        geometry.fill("moderateur",combustible3Regions,4,nucleiConcentration);
 
         geometry.buildMacros() ;
 
         cout<<geometry.toString()<<endl; ;
+        //cout<<geometry.getXS()->getXS(SetOfXS::FISSION_PRODUCTION)->toString() ;
+
 
         delete spatialMesh;
         delete lib ;
 
         // End of Data File
+}
+
+
+
+int main(int argc, char** argv) {
+    cout<<"<output>"<<endl;
+    try {
+
+		testBuildMedium() ;
+
     }    catch (const exception & e) {
         cout << e.what() << endl;
     }
-    cout<<"</sortie>"<<endl;
+    cout<<"</output>"<<endl;
     return 0;
 }
 

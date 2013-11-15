@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   EnergyMesh.h
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
  *
@@ -19,11 +19,11 @@ public:
     virtual ~EnergyMesh();
     Region* getRegion(unsigned n) ;
     Region* getRegion(std::string s) ;
-    unsigned size() ;
-    
+    unsigned size() const ;
+
     std::string toString() ;
 private:
-    
+
     std::vector<EnergyGroup> energyGroups ;
 };
 

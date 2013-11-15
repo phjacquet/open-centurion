@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Region.cpp
  * Author: Philippe Jacquet <contact@philippe-jacquet.com>
- * 
+ *
  * Created on 13 juin 2011, 01:46
  */
 
